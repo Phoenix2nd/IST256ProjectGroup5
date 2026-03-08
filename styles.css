@@ -1,7 +1,9 @@
 /* ===============================
    GLOBAL STYLES
 =================================*/
-
+body {
+    background: yellow;
+}
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
