@@ -1,124 +1,94 @@
-/* ===============================
-   GLOBAL STYLES
-=================================*/
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    background-color: #f4f6f8;
-    color: #333;
+    background-color: #0b0f1a; 
+    color: #e5e5e5;
     line-height: 1.6;
 }
 
 a {
     text-decoration: none;
-    color: #0d6efd;
+    color: #3b82f6;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: #60a5fa;
 }
 
-/* ===============================
-   HEADER
-=================================*/
-
 header {
-    background: #0a2540;
-    color: white;
-    padding: 20px;
+    background-color: #000000; 
+    border-bottom: 3px solid #2563eb;
 }
 
 header strong {
-    font-size: 24px;
+    font-size: 26px;
+    color: #3b82f6;
 }
 
 header p {
-    margin: 5px 0 15px 0;
+    margin-top: 5px;
+    color: #9ca3af;
 }
-
-/* ===============================
-   NAVIGATION
-=================================*/
 
 nav ul {
     list-style: none;
     padding: 0;
     display: flex;
-    gap: 20px;
-}
-
-nav li {
-    display: inline;
+    gap: 25px;
 }
 
 nav a {
-    color: white;
+    color: #e5e5e5;
     font-weight: bold;
 }
 
 nav a:hover {
-    color: #ffd166;
+    color: #3b82f6;
 }
-
-/* ===============================
-   MAIN CONTENT
-=================================*/
 
 main {
     padding: 40px;
 }
 
-/* ===============================
-   HERO SECTION
-=================================*/
-
-section:first-of-type {
-    background: white;
-    padding: 40px;
+section {
+    background-color: #111827;
+    padding: 30px;
     border-radius: 8px;
     margin-bottom: 30px;
 }
 
 h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
+    font-size: 42px;
+    color: #3b82f6;
 }
 
 h2 {
-    margin-top: 40px;
-    color: #0a2540;
+    color: #60a5fa;
 }
 
 h3 {
-    color: #0a2540;
+    color: #93c5fd;
 }
-
-/* ===============================
-   BUTTONS
-=================================*/
 
 [role="button"] {
     display: inline-block;
-    background: #0d6efd;
+    background: #2563eb;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 22px;
     border-radius: 6px;
-    margin-right: 10px;
     font-weight: bold;
+    margin-right: 10px;
 }
 
 [role="button"]:hover {
-    background: #084298;
+    background: #1d4ed8;
 }
 
-/* ===============================
-   STATS LIST
-=================================*/
 
 section ul {
     display: flex;
     gap: 40px;
-    margin-top: 30px;
+    margin-top: 25px;
     padding: 0;
 }
 
@@ -129,83 +99,58 @@ section ul li {
 
 section ul strong {
     font-size: 28px;
-    display: block;
+    color: #3b82f6;
 }
 
-/* ===============================
-   SCHEDULE SECTION
-=================================*/
-
 article {
-    background: white;
+    background: #020617;
+    border: 1px solid #1e293b;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
 article header {
     background: none;
-    color: #333;
     padding: 0;
-    margin-bottom: 10px;
 }
 
 time {
+    color: #3b82f6;
     font-weight: bold;
 }
 
-details {
-    margin-top: 10px;
-}
-
-/* ===============================
-   IMPORTANT DATES
-=================================*/
-
-ol li {
-    margin-bottom: 15px;
-}
-
-/* ===============================
-   ASIDE
-=================================*/
 
 aside {
-    background: #e9f2ff;
+    background: #020617;
+    border: 1px solid #1e293b;
     padding: 20px;
-    border-radius: 8px;
-    margin-top: 30px;
+    border-radius: 6px;
 }
 
-/* ===============================
-   CALL TO ACTION
-=================================*/
 
 section:last-of-type {
-    background: #0a2540;
-    color: white;
-    padding: 40px;
-    border-radius: 8px;
+    background: #000000;
     text-align: center;
+    border: 2px solid #2563eb;
 }
 
 section:last-of-type a {
-    background: #ffd166;
-    color: black;
+    background: #3b82f6;
+    color: white;
     padding: 12px 25px;
     border-radius: 6px;
-    font-weight: bold;
 }
 
-/* ===============================
-   FOOTER
-=================================*/
+section:last-of-type a:hover {
+    background: #2563eb;
+}
+
 
 footer {
-    background: #111;
-    color: white;
+    background: #000000;
     padding: 30px;
-    margin-top: 40px;
+    border-top: 3px solid #2563eb;
 }
 
 footer ul {
@@ -213,24 +158,23 @@ footer ul {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
 }
 
 footer a {
-    color: #ccc;
+    color: #9ca3af;
 }
 
 footer a:hover {
-    color: white;
+    color: #3b82f6;
 }
 
 footer address {
     margin-top: 20px;
-    font-style: normal;
 }
 
 small {
+    color: #6b7280;
     display: block;
     margin-top: 20px;
-    color: #aaa;
 }
