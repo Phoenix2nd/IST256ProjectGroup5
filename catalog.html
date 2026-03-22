@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Session Catalog" />
+    <title>Session Catalog</title>
+  </head>
+
+  <body>
+    <!-- SITE HEADER & PRIMARY NAVIGATION -->
+    <header>
+      <div>
+        <a href="index.html">
+          <strong>Conference 2026</strong>
+        </a>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#schedule">Schedule</a></li>
+        </ul>
+      </nav>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+
+      <!-- ── Page Heading ──────────────────────────────────────── -->
+      <section>
+        <hgroup>
+          <h1 id="catalog-page-heading">Session Catalog</h1>
+          <p>
+            Manage all conference talks and workshops from this page.
+            Add new sessions, update existing entries, search the catalog, and
+            view or delete records.
+          </p>
+        </hgroup>
+
+        <!-- Quick-action links for keyboard/screen-reader users -->
+        <nav>
+          <ul>
+            <li><a href="#add-session">+ Add New Session</a></li>
+            <li><a href="#catalog-search">Search &amp; Filter</a></li>
+            <li><a href="#catalog-table">Browse All Sessions</a></li>
+          </ul>
+        </nav>
+      </section>
+
+
+      <!-- SECTION 1 — ADD / EDIT SESSION FORM -->
+      <section id="add-session">
+        <header>
+          <h2 id="form-section-heading">Add a New Session</h2>
+          <p>
+            Complete the fields below to add a session to the catalog.
+            Fields marked <abbr title="required">*</abbr> are required.
+          </p>
+        </header>
+
+        <!-- Error summary — JS will populate on failed submit -->
+        <div
+          id="catalog-form-errors"
+          role="alert"
+          hidden
+        >
+          <h3>Please fix the following errors before saving:</h3>
+          <ul>
+            <!-- JS injects error <li> links here -->
+          </ul>
+        </div>
+
+        <form
+          id="catalog-form"
+          method="post"
+          action="#"
+          novalidate
+        >
+          <!-- Hidden fields for edit mode — JS sets these when editing a row -->
+          <input type="hidden" id="form-mode" name="form_mode" value="add" />
+          <input type="hidden" id="editing-session-id" name="editing_session_id" value="" />
+
+          <!-- ── Identification ─────────────────────────────── -->
+          <fieldset>
+            <legend>Session Identification</legend>
+
+            <div>
+              <label for="session-id">
+                Session ID <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="text"
+                id="session-id"
+                name="session_id"
+                placeholder="e.g. CONF-001"
+                required
+                readonly
+              />
+              <span id="session-id-hint">
+                Auto-generated on save. Format: <code>CONF-###</code> for talks,
+                <code>WRK-###</code> for workshops. You may override before saving.
+              </span>
+              <span id="session-id-error" role="alert" hidden>
+                A Session ID is required.
+              </span>
+              <button type="button" id="generate-id-btn">
+                Generate ID
+              </button>
+            </div>
+
+            <div>
+              <label for="session-type">
+                Session Type <abbr title="required">*</abbr>
+              </label>
+              <select
+                id="session-type"
+                name="session_type"
+                required
+              >
+                <option value="" disabled selected>— Select type —</option>
+                <option value="talk">Conference Talk</option>
+                <option value="workshop">Workshop</option>
+              </select>
+              <span id="session-type-hint">
+                Selecting a type will also update the Session ID prefix.
+              </span>
+              <span id="session-type-error" role="alert" hidden>
+                Please select a session type.
+              </span>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Core Details ───────────────────────────────── -->
+          <fieldset>
+            <legend>Session Details</legend>
+
+            <div>
+              <label for="session-title">
+                Session Title <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="text"
+                id="session-title"
+                name="session_title"
+                placeholder="e.g. Introduction to Protein Folding Simulations"
+                required
+                minlength="5"
+                maxlength="200"
+              />
+              <span id="session-title-hint">Use a clear, descriptive title as it will appear in the public schedule and catalog.</span>
+              <span id="session-title-error" role="alert" hidden>
+                Please enter a session title (5–200 characters).
+              </span>
+            </div>
+
+            <div>
+              <label for="session-abstract">
+                Abstract / Description
+              </label>
+              <textarea
+                id="session-abstract"
+                name="session_abstract"
+                rows="5"
+                maxlength="1200"
+                placeholder="A brief overview of the session's content, goals, and target audience..."
+              ></textarea>
+              <span id="abstract-hint">Maximum 1,200 characters. Displayed on the session detail page and in the catalog listing.</span>
+            </div>
+
+            <div>
+              <label for="session-track">
+                Track / Theme
+              </label>
+              <select id="session-track" name="session_track">
+                <option value="" selected>— Unassigned —</option>
+                <option value="computational-biology">Computational Biology</option>
+                <option value="ai-ml">Artificial Intelligence &amp; Machine Learning</option>
+                <option value="sustainability">Sustainability &amp; Materials</option>
+                <option value="public-health">Public Health &amp; Epidemiology</option>
+                <option value="hci">Human-Computer Interaction</option>
+                <option value="policy">Science Policy &amp; Ethics</option>
+                <option value="other">Other / Cross-disciplinary</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="session-tags">
+                Keywords / Tags
+              </label>
+              <input
+                type="text"
+                id="session-tags"
+                name="session_tags"
+                placeholder="e.g. machine learning, ethics, open data"
+                maxlength="300"
+              />
+              <span id="tags-hint">Comma-separated. Used for search and filtering in the catalog.</span>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Workshop-Specific Fields ───────────────────── -->
+          <fieldset id="workshop-fields">
+            <legend id="workshop-fields-legend">Workshop Settings</legend>
+            <p>
+              These fields apply to <strong>Workshop</strong> sessions only.
+              They will be ignored for Conference Talks.
+            </p>
+
+            <div>
+              <label for="workshop-format">
+                Workshop Format <abbr title="required for workshops">*</abbr>
+              </label>
+              <select
+                id="workshop-format"
+                name="workshop_format"
+              >
+                <option value="" selected>— Select format —</option>
+                <option value="hands-on">Hands-On / Lab</option>
+                <option value="lecture">Lecture-Style</option>
+                <option value="discussion">Facilitated Discussion</option>
+                <option value="hybrid">Hybrid (Lecture + Activity)</option>
+              </select>
+              <span id="workshop-format-hint">Determines room setup and equipment requirements.</span>
+            </div>
+
+            <div>
+              <label for="capacity">
+                Capacity (Max Attendees) <abbr title="required for workshops">*</abbr>
+              </label>
+              <input
+                type="number"
+                id="capacity"
+                name="capacity"
+                min="1"
+                max="500"
+                step="1"
+                placeholder="e.g. 30"
+              />
+              <span id="capacity-hint">Leave blank for unlimited / open sessions.</span>
+              <span id="capacity-error" role="alert" hidden>
+                Please enter a valid capacity (1–500).
+              </span>
+            </div>
+
+            <div>
+              <label for="materials-url">
+                Workshop Materials URL
+              </label>
+              <input
+                type="url"
+                id="materials-url"
+                name="materials_url"
+                placeholder="https://drive.google.com/..."
+              />
+              <span id="materials-hint">Link to pre-reading, slides, or any materials attendees should review beforehand.</span>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Scheduling ─────────────────────────────────── -->
+          <fieldset>
+            <legend>Scheduling</legend>
+
+            <div>
+              <label for="session-date">
+                Date <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="date"
+                id="session-date"
+                name="session_date"
+                min="2026-07-14"
+                max="2026-07-17"
+                required
+              />
+              <span id="session-date-hint">Must fall within the conference dates: July 14–17, 2026.</span>
+              <span id="session-date-error" role="alert" hidden>
+                Please select a date between July 14 and July 17, 2026.
+              </span>
+            </div>
+
+            <div>
+              <label for="start-time">
+                Start Time <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="time"
+                id="start-time"
+                name="start_time"
+                required
+              />
+              <span id="start-time-error" role="alert" hidden>
+                Please enter a start time.
+              </span>
+            </div>
+
+            <div>
+              <label for="duration">
+                Duration <abbr title="required">*</abbr>
+              </label>
+              <select
+                id="duration"
+                name="duration"
+                required
+              >
+                <option value="" disabled selected>— Select duration —</option>
+                <optgroup label="Short">
+                  <option value="15">15 minutes</option>
+                  <option value="20">20 minutes</option>
+                  <option value="30">30 minutes</option>
+                  <option value="45">45 minutes</option>
+                </optgroup>
+                <optgroup label="Standard">
+                  <option value="60">1 hour</option>
+                  <option value="75">1 hour 15 minutes</option>
+                  <option value="90">1 hour 30 minutes</option>
+                </optgroup>
+                <optgroup label="Extended">
+                  <option value="120">2 hours</option>
+                  <option value="150">2 hours 30 minutes</option>
+                  <option value="180">3 hours</option>
+                  <option value="custom">Custom (specify below)</option>
+                </optgroup>
+              </select>
+              <span id="duration-hint">For talks, standard slots are 20 or 30 minutes. Workshops are typically 1.5–3 hours.</span>
+              <span id="duration-error" role="alert"  hidden>
+                Please select a duration.
+              </span>
+            </div>
+
+            <div id="custom-duration-field">
+              <label for="custom-duration">
+                Custom Duration (minutes)
+              </label>
+              <input
+                type="number"
+                id="custom-duration"
+                name="custom_duration"
+                min="5"
+                max="480"
+                step="5"
+                placeholder="e.g. 110"
+              />
+              <span id="custom-duration-hint">Enter duration in minutes. Only used when "Custom" is selected above.</span>
+            </div>
+
+            <div>
+              <label for="room-location">
+                Room / Location
+              </label>
+              <select id="room-location" name="room_location">
+                <option value="" selected>— Unassigned —</option>
+                <optgroup label="Main Building">
+                  <option value="ballroom-a">Grand Ballroom A</option>
+                  <option value="ballroom-b">Grand Ballroom B</option>
+                  <option value="room-101">Room 101</option>
+                  <option value="room-102">Room 102</option>
+                  <option value="room-204">Room 204</option>
+                  <option value="room-205">Room 205</option>
+                </optgroup>
+                <optgroup label="Workshop Spaces">
+                  <option value="workshop-a">Workshop Room A</option>
+                  <option value="workshop-b">Workshop Room B</option>
+                  <option value="workshop-c">Workshop Room C</option>
+                  <option value="lab-1">Computer Lab 1</option>
+                </optgroup>
+                <optgroup label="Other">
+                  <option value="exhibition-hall">Exhibition Hall</option>
+                  <option value="rooftop">Rooftop Terrace</option>
+                  <option value="tba">TBA</option>
+                </optgroup>
+              </select>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Speaker ────────────────────────────────────── -->
+          <fieldset>
+            <legend>Speaker <span>(Optional)</span></legend>
+
+            <div>
+              <label for="speaker-name">
+                Speaker Name
+              </label>
+              <input
+                type="text"
+                id="speaker-name"
+                name="speaker_name"
+                placeholder="e.g. Dr. Jane Doe"
+                maxlength="120"
+                autocomplete="off"
+              />
+              <span id="speaker-name-hint">Enter the speaker's full name and title. For panels with multiple speakers, enter the lead speaker here and list others in the abstract.</span>
+            </div>
+
+            <div>
+              <label for="speaker-institution">
+                Speaker Institution / Organization
+              </label>
+              <input
+                type="text"
+                id="speaker-institution"
+                name="speaker_institution"
+                placeholder="e.g. MIT, DeepMind"
+                maxlength="200"
+                autocomplete="off"
+              />
+            </div>
+
+            <div>
+              <label for="speaker-email">
+                Speaker Email
+              </label>
+              <input
+                type="email"
+                id="speaker-email"
+                name="speaker_email"
+                placeholder="e.g. speaker@university.edu"
+                autocomplete="off"
+              />
+              <span id="speaker-email-hint">Used for internal coordination only. Not shown publicly.</span>
+            </div>
+
+            <div>
+              <label for="speaker-bio">
+                Speaker Bio
+              </label>
+              <textarea
+                id="speaker-bio"
+                name="speaker_bio"
+                rows="4"
+                maxlength="600"
+                placeholder="A short biography to appear on the session detail page and speaker listing..."
+              ></textarea>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Registration & Pricing ─────────────────────── -->
+          <fieldset>
+            <legend>Registration &amp; Pricing</legend>
+
+            <div>
+              <label for="registration-fee">
+                Registration Fee (USD) <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="number"
+                id="registration-fee"
+                name="registration_fee"
+                min="0"
+                max="9999.99"
+                step="0.01"
+                placeholder="e.g. 0.00 for free, 49.99 for paid"
+                required
+              />
+              <span id="fee-hint">
+                Enter <strong>0</strong> for sessions included with conference registration.
+                Enter a positive value for separately ticketed sessions.
+              </span>
+              <span id="fee-error" role="alert" hidden>
+                Please enter a registration fee. Use 0 for free sessions.
+              </span>
+            </div>
+
+            <div>
+              <label for="registration-deadline">
+                Registration Deadline
+              </label>
+              <input
+                type="date"
+                id="registration-deadline"
+                name="registration_deadline"
+                max="2026-07-13"
+              />
+              <span id="reg-deadline-hint">Leave blank if registration closes with the main conference registration (June 30, 2026).</span>
+            </div>
+
+            <div>
+              <fieldset>
+                <legend>Registration Status</legend>
+                <div>
+                  <input type="radio" id="reg-open" name="registration_status" value="open" checked />
+                  <label for="reg-open">Open</label>
+                </div>
+                <div>
+                  <input type="radio" id="reg-closed" name="registration_status" value="closed" />
+                  <label for="reg-closed">Closed</label>
+                </div>
+                <div>
+                  <input type="radio" id="reg-waitlist" name="registration_status" value="waitlist" />
+                  <label for="reg-waitlist">Waitlist Only</label>
+                </div>
+                <div>
+                  <input type="radio" id="reg-free-walk-in" name="registration_status" value="walk-in" />
+                  <label for="reg-free-walk-in">Free / Walk-In</label>
+                </div>
+              </fieldset>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Internal Notes ─────────────────────────────── -->
+          <fieldset>
+            <legend>Internal Notes <span>(Not shown publicly)</span></legend>
+
+            <div>
+              <label for="internal-notes">Notes for Organizers</label>
+              <textarea
+                id="internal-notes"
+                name="internal_notes"
+                rows="4"
+                maxlength="1000"
+                placeholder="AV requirements, room setup notes, special arrangements, etc."
+              ></textarea>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Form Actions ───────────────────────────────── -->
+          <div role="group">
+            <button type="submit" id="submit-btn" name="action" value="save">
+              Save Session
+            </button>
+            <button type="button" id="save-draft-btn" name="action" value="draft">
+              Save as Draft
+            </button>
+            <button type="reset" id="reset-btn">
+              Clear Form
+            </button>
+          </div>
+
+          <!-- Inline feedback after save -->
+          <div id="catalog-form-feedback" role="status"></div>
+
+        </form>
+      </section>
+
+      <!-- SECTION 3 — SESSION CATALOG TABLE -->
+      <section id="catalog-table">
+        <header>
+          <h2 id="table-heading">All Sessions</h2>
+          <p>
+            <a href="#add-session">+ Add New Session</a>
+          </p>
+        </header>
+ 
+        <!-- ── Table View ──────────────────────────────────── -->
+        <div role="region" tabindex="0">
+          <table>
+            <caption>
+              Conference session catalog. Use the Edit and Delete actions in the
+              final column to manage each entry.
+              <details>
+                <summary>Table help</summary>
+                <p>Click column headers to sort. The Actions column lets you edit a session (which pre-fills the form above) or permanently delete it.</p>
+              </details>
+            </caption>
+ 
+            <thead>
+              <tr>
+                <th scope="col">
+                  <button type="button">
+                    Session ID <span>↕</span>
+                  </button>
+                </th>
+                <th scope="col">
+                  <button type="button">
+                    Type <span >↕</span>
+                  </button>
+                </th>
+                <th scope="col">
+                  <button type="button">
+                    Session Title <span>↑</span>
+                  </button>
+                </th>
+                <th scope="col">
+                  <button type="button">
+                    Date &amp; Time <span>↕</span>
+                  </button>
+                </th>
+                <th scope="col">Duration</th>
+                <th scope="col">Room</th>
+                <th scope="col">Speaker</th>
+                <th scope="col">
+                  <button type="button">
+                    Fee <span>↕</span>
+                  </button>
+                </th>
+                <th scope="col">Reg. Status</th>
+                <th scope="col">
+                  <button type="button">
+                    Status <span>↕</span>
+                  </button>
+                </th>
+                <th scope="col"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+ 
+            <tbody>
+ 
+              <!-- Row 1 -->
+              <tr>
+                <th scope="row"><code>CONF-001</code></th>
+                <td>Talk</td>
+                <td>Protein Folding Simulations at Scale</td>
+                <td>
+                  <time datetime="2026-07-15T10:30">Jul 15 · 10:30 AM</time>
+                </td>
+                <td>20 min</td>
+                <td>Room 101</td>
+                <td>Jane Doe, MIT</td>
+                <td>Free</td>
+                <td><span>Open</span></td>
+                <td><span>Published</span></td>
+                <td>
+                  <a
+                    href="#add-session"
+                    data-edit-id="CONF-001"
+                  >Edit</a>
+                  <button
+                    type="button"
+                    data-delete-id="CONF-001"
+                  >Delete</button>
+                </td>
+              </tr>
+ 
+              <!-- Row 2 -->
+              <tr>
+                <th scope="row"><code>WRK-001</code></th>
+                <td>Workshop</td>
+                <td>Inclusive Design Methods for Researchers</td>
+                <td>
+                  <time datetime="2026-07-15T14:00">Jul 15 · 2:00 PM</time>
+                </td>
+                <td>2 hr</td>
+                <td>Workshop Room B</td>
+                <td>Yuki Tanaka, U of Tokyo</td>
+                <td>$49.00</td>
+                <td><span>12 seats left</span></td>
+                <td><span>Published</span></td>
+                <td>
+                  <a
+                    href="#add-session"
+                    data-edit-id="WRK-001"
+                  >Edit</a>
+                  <button
+                    type="button"
+                    data-delete-id="WRK-001"
+                  >Delete</button>
+                </td>
+              </tr>
+ 
+              <!-- Row 3 -->
+              <tr>
+                <th scope="row"><code>CONF-002</code></th>
+                <td>Talk</td>
+                <td>Responsible AI in Research</td>
+                <td>
+                  <time datetime="2026-07-15T09:00">Jul 15 · 9:00 AM</time>
+                </td>
+                <td>60 min</td>
+                <td>Grand Ballroom A</td>
+                <td>Marcus Osei, DeepMind</td>
+                <td>Free</td>
+                <td><span>Open</span></td>
+                <td><span>Published</span></td>
+                <td>
+                  <a
+                    href="#add-session"
+                    data-edit-id="CONF-002"
+                  >Edit</a>
+                  <button
+                    type="button"
+                    data-delete-id="CONF-002"
+                  >Delete</button>
+                </td>
+              </tr>
+ 
+              <!-- Row 4 -->
+              <tr>
+                <th scope="row"><code>WRK-002</code></th>
+                <td>Workshop</td>
+                <td>Epidemiological Modelling with Python</td>
+                <td>
+                  <time datetime="2026-07-16T13:30">Jul 16 · 1:30 PM</time>
+                </td>
+                <td>3 hr</td>
+                <td>Computer Lab 1</td>
+                <td>Amara Diallo, AIMS</td>
+                <td>$75.00</td>
+                <td><span>Closed</span></td>
+                <td><span>Published</span></td>
+                <td>
+                  <a
+                    href="#add-session"
+                    data-edit-id="WRK-002"
+                  >Edit</a>
+                  <button
+                    type="button"
+                    data-delete-id="WRK-002"
+                  >Delete</button>
+                </td>
+              </tr>
+ 
+              <!-- Row 5 -->
+              <tr>
+                <th scope="row"><code>CONF-003</code></th>
+                <td>Talk</td>
+                <td>Graph Neural Networks for Genomic Prediction</td>
+                <td>
+                  <time datetime="2026-07-15T10:50">Jul 15 · 10:50 AM</time>
+                </td>
+                <td>20 min</td>
+                <td>Room 101</td>
+                <td>Ryo Matsuda, Kyoto University</td>
+                <td>Free</td>
+                <td><span>Open</span></td>
+                <td><span>Under Review</span></td>
+                <td>
+                  <a
+                    href="#add-session"
+                    data-edit-id="CONF-003"
+                  >Edit</a>
+                  <button
+                    type="button"
+                    data-delete-id="CONF-003"
+                  >Delete</button>
+                </td>
+              </tr>
+ 
+              <!-- Row 6 -->
+              <tr>
+                <th scope="row"><code>CONF-004</code></th>
+                <td>Talk</td>
+                <td>Sustainable Materials for Circular Economies</td>
+                <td>
+                  <time datetime="2026-07-17T09:00">Jul 17 · 9:00 AM</time>
+                </td>
+                <td>30 min</td>
+                <td>Room 204</td>
+                <td>—</td>
+                <td>Free</td>
+                <td><span>Open</span></td>
+                <td><span>Draft</span></td>
+                <td>
+                  <a
+                    href="#add-session"
+                    data-edit-id="CONF-004"
+                  >Edit</a>
+                  <button
+                    type="button"
+                    data-delete-id="CONF-004"
+                  >Delete</button>
+                </td>
+              </tr>
+ 
+            </tbody>
+          </table>
+        </div>
+ 
+    <!-- SITE FOOTER -->
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#schedule">Schedule</a></li>
+          <li><a href="catalog.html">Session Catalog</a></li>
+          <li><a href="#">Speakers</a></li>
+          <li><a href="#">Venue</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </nav>
+
+      <address>
+        Conference 2026 Secretariat<br />
+        123 Convention Way, Innovation District<br />
+        San Francisco, CA 94102, USA<br />
+        <a href="mailto:info@conference.com">info@conference.com</a>
+      </address>
+
+      <small>&copy; 2026 Conference 2026. All rights reserved.</small>
+    </footer>
+
+  </body>
+</html>
