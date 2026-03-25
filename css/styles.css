@@ -319,13 +319,12 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
+
+header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
 
   nav ul {
     flex-direction: column;
