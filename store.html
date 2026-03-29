@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Conference 2026 Store - browse and purchase workshop registrations, event passes, and conference merchandise." />
+    <title>Store &amp; Cart - Conference 2026</title>
+  </head>
+
+  <body>
+
+    <!-- SITE HEADER & PRIMARY NAVIGATION -->
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#schedule">Schedule</a></li>
+          <li><a href="catalog.html">Session Catalog</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="store.html">Store &amp; Cart</a></li>
+
+        </ul>
+      </nav>
+
+      <!-- Cart badge in header — JS will update the count -->
+      <a href="#cart" id="header-cart-link">
+        Cart
+        <span id="header-cart-count">0</span>
+        items
+      </a>
+
+      <button type="button" id="mobile-menu-toggle">Menu</button>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+
+      <!-- Page Heading -->
+      <section>
+        <hgroup>
+          <h1>Conference Store</h1>
+          <p>
+            Purchase additional workshop seats, event passes, printed materials,
+            and official Conference 2026 merchandise below.
+            Items included in your base registration are marked <strong>Free</strong>.
+          </p>
+        </hgroup>
+
+        <nav>
+          <ul>
+            <li><a href="#product-search">Search Products</a></li>
+            <li><a href="#product-catalog">Browse All Products</a></li>
+            <li><a href="#cart">View Cart</a></li>
+            <li><a href="#checkout">Checkout</a></li>
+          </ul>
+        </nav>
+      </section>
+
+
+      <!-- SECTION 1 — PRODUCT SEARCH -->
+      <section id="product-search">
+        <header>
+          <h2>Search Products</h2>
+        </header>
+
+        <form
+          id="product-search-form"
+          method="get"
+          action="#product-catalog"
+        >
+          <fieldset>
+            <legend>Search &amp; Filter</legend>
+
+            <!-- Keyword -->
+            <div>
+              <label for="search-query">Search by name or keyword</label>
+              <input
+                type="search"
+                id="search-query"
+                name="q"
+                placeholder="e.g. workshop, lanyard, dinner ticket..."
+                autocomplete="off"
+              />
+            </div>
+
+            <!-- Category -->
+            <div>
+              <label for="filter-category">Category</label>
+              <select id="filter-category" name="category">
+                <option value="">All categories</option>
+                <option value="workshop">Workshop Seats</option>
+                <option value="pass">Event Passes</option>
+                <option value="meal">Meal &amp; Dinner Tickets</option>
+                <option value="merch">Merchandise</option>
+                <option value="materials">Printed Materials</option>
+                <option value="digital">Digital Downloads</option>
+              </select>
+            </div>
+
+            <!-- Price range -->
+            <div>
+              <label for="filter-price">Price Range</label>
+              <select id="filter-price" name="price_range">
+                <option value="">Any price</option>
+                <option value="free">Free</option>
+                <option value="0-25">Under $25</option>
+                <option value="25-75">$25 - $75</option>
+                <option value="75-150">$75 - $150</option>
+                <option value="150+">$150 and above</option>
+              </select>
+            </div>
+
+            <!-- Availability -->
+            <div>
+              <label for="filter-availability">Availability</label>
+              <select id="filter-availability" name="availability">
+                <option value="">All</option>
+                <option value="in-stock">In Stock</option>
+                <option value="low-stock">Low Stock</option>
+                <option value="out-of-stock">Out of Stock</option>
+              </select>
+            </div>
+
+            <!-- Sort -->
+            <div>
+              <label for="sort-by">Sort By</label>
+              <select id="sort-by" name="sort">
+                <option value="name-asc">Name (A → Z)</option>
+                <option value="name-desc">Name (Z → A)</option>
+                <option value="price-asc">Price (low → high)</option>
+                <option value="price-desc">Price (high → low)</option>
+                <option value="availability">Availability</option>
+              </select>
+            </div>
+
+            <div>
+              <button type="submit">Search</button>
+              <a href="#product-search">Clear</a>
+            </div>
+
+          </fieldset>
+        </form>
+      </section>
+
+
+      <!-- SECTION 2 — PRODUCT CATALOG -->
+      <section id="product-catalog">
+        <header>
+          <h2>All Products</h2>
+        </header>
+
+        <!-- Products are displayed as a list of cards.
+             Each add-to-cart form carries data attributes used by AJAX
+             to POST to the REST API endpoint /api/v1/cart/items  -->
+        <ol id="product-list">
+
+          <!-- PRODUCT 1 -->
+          <li>
+            <article
+              id="product-WRK-001"
+              data-product-id="WRK-001"
+              data-product-type="workshop"
+              data-product-name="Inclusive Design Methods for Researchers"
+              data-product-price="49.00"
+              data-product-currency="USD"
+              data-stock="12"
+            >
+              <header>
+                <h3>Inclusive Design Methods for Researchers</h3>
+                <p>Workshop Seat</p>
+              </header>
+
+              <dl>
+                <dt>Session</dt>
+                <dd>WRK-001 &nbsp;-&nbsp; Workshop</dd>
+
+                <dt>Date &amp; Time</dt>
+                <dd><time datetime="2026-07-15T14:00">July 15 - 2:00 PM - 4:00 PM</time></dd>
+
+                <dt>Facilitator</dt>
+                <dd>Yuki Tanaka, University of Tokyo</dd>
+
+                <dt>Duration</dt>
+                <dd>2 hours</dd>
+
+                <dt>Room</dt>
+                <dd>Workshop Room B</dd>
+
+                <dt>Price</dt>
+                <dd><strong>$49.00 USD</strong> per seat</dd>
+
+                <dt>Availability</dt>
+                <dd>12 seats remaining</dd>
+              </dl>
+
+              <p>
+                A hands on session exploring accessible research design.
+                Participants leave with a personal accessibility checklist and
+                practical frameworks for inclusive methodology.
+              </p>
+
+              <form
+                method="post"
+                action="#cart"
+                data-ajax-endpoint="/api/v1/cart/items"
+                data-ajax-method="POST"
+              >
+                <input type="hidden" name="product_id"   value="WRK-001" />
+                <input type="hidden" name="product_type" value="workshop" />
+                <input type="hidden" name="product_name" value="Inclusive Design Methods for Researchers" />
+                <input type="hidden" name="unit_price"   value="49.00" />
+                <input type="hidden" name="currency"     value="USD" />
+
+                <div>
+                  <label for="qty-WRK-001">Quantity</label>
+                  <input
+                    type="number"
+                    id="qty-WRK-001"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    max="12"
+                    step="1"
+                  />
+                </div>
+
+                <button type="submit" name="action" value="add-to-cart">
+                  Add to Cart
+                </button>
+              </form>
+            </article>
+          </li>
+
+          <!-- PRODUCT 2 -->
+          <li>
+            <article
+              id="product-WRK-002"
+              data-product-id="WRK-002"
+              data-product-type="workshop"
+              data-product-name="Epidemiological Modelling with Python"
+              data-product-price="75.00"
+              data-product-currency="USD"
+              data-stock="0"
+            >
+              <header>
+                <h3>Epidemiological Modelling with Python</h3>
+                <p>Workshop Seat</p>
+              </header>
+
+              <dl>
+                <dt>Session</dt>
+                <dd>WRK-002 &nbsp;-&nbsp; Workshop</dd>
+
+                <dt>Date &amp; Time</dt>
+                <dd><time datetime="2026-07-16T13:30">July 16 - 1:30 PM - 4:30 PM</time></dd>
+
+                <dt>Facilitator</dt>
+                <dd>Amara Diallo, AIMS Cape Town</dd>
+
+                <dt>Duration</dt>
+                <dd>3 hours</dd>
+
+                <dt>Room</dt>
+                <dd>Computer Lab 1</dd>
+
+                <dt>Price</dt>
+                <dd><strong>$75.00 USD</strong> per seat</dd>
+
+                <dt>Availability</dt>
+                <dd><strong>Sold Out</strong></dd>
+              </dl>
+
+              <p>
+                Build and analyse epidemiological models using Python.
+                Covers SIR, SEIR, and agent based models with real-world datasets.
+                Laptop required.
+              </p>
+
+              <form
+                method="post"
+                action="#cart"
+                data-ajax-endpoint="/api/v1/cart/items"
+                data-ajax-method="POST"
+              >
+                <input type="hidden" name="product_id"   value="WRK-002" />
+                <input type="hidden" name="product_type" value="workshop" />
+                <input type="hidden" name="product_name" value="Epidemiological Modelling with Python" />
+                <input type="hidden" name="unit_price"   value="75.00" />
+                <input type="hidden" name="currency"     value="USD" />
+
+                <div>
+                  <label for="qty-WRK-002">Quantity</label>
+                  <input
+                    type="number"
+                    id="qty-WRK-002"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    max="1"
+                    step="1"
+                    disabled
+                  />
+                </div>
+
+                <button type="submit" name="action" value="add-to-cart" disabled>
+                  Sold Out - Join Waitlist
+                </button>
+              </form>
+            </article>
+          </li>
+
+          <!-- PRODUCT 3 -->
+          <li>
+            <article
+              id="product-PASS-EXTRA-DAY"
+              data-product-id="PASS-EXTRA-DAY"
+              data-product-type="pass"
+              data-product-name="Single Day Pass (Any Day)"
+              data-product-price="95.00"
+              data-product-currency="USD"
+              data-stock="999"
+            >
+              <header>
+                <h3>Single Day Pass - Any Day</h3>
+                <p>Event Pass</p>
+              </header>
+
+              <dl>
+                <dt>Valid For</dt>
+                <dd>One conference day of your choice (July 14-17)</dd>
+
+                <dt>Includes</dt>
+                <dd>All keynotes, talks, and panels on the chosen day; lunch; conference materials</dd>
+
+                <dt>Price</dt>
+                <dd><strong>$95.00 USD</strong> per pass</dd>
+
+                <dt>Availability</dt>
+                <dd>Available</dd>
+              </dl>
+
+              <p>
+                Ideal for local attendees who can only join for part of the conference.
+                Select your preferred day at checkout.
+              </p>
+
+              <form
+                method="post"
+                action="#cart"
+                data-ajax-endpoint="/api/v1/cart/items"
+                data-ajax-method="POST"
+              >
+                <input type="hidden" name="product_id"   value="PASS-EXTRA-DAY" />
+                <input type="hidden" name="product_type" value="pass" />
+                <input type="hidden" name="product_name" value="Single Day Pass (Any Day)" />
+                <input type="hidden" name="unit_price"   value="95.00" />
+                <input type="hidden" name="currency"     value="USD" />
+
+                <div>
+                  <label for="day-PASS-EXTRA-DAY">Choose Day</label>
+                  <select id="day-PASS-EXTRA-DAY" name="pass_day" required>
+                    <option value="" disabled selected>- Select a day -</option>
+                    <option value="2026-07-14">Day 1 - July 14</option>
+                    <option value="2026-07-15">Day 2 - July 15</option>
+                    <option value="2026-07-16">Day 3 - July 16</option>
+                    <option value="2026-07-17">Day 4 - July 17</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="qty-PASS-EXTRA-DAY">Quantity</label>
+                  <input
+                    type="number"
+                    id="qty-PASS-EXTRA-DAY"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    max="10"
+                    step="1"
+                  />
+                </div>
+
+                <button type="submit" name="action" value="add-to-cart">
+                  Add to Cart
+                </button>
+              </form>
+            </article>
+          </li>
+
+          <!-- PRODUCT 4 -->
+          <li>
+            <article
+              id="product-DINNER-001"
+              data-product-id="DINNER-001"
+              data-product-type="meal"
+              data-product-name="Conference Dinner Ticket - July 16"
+              data-product-price="65.00"
+              data-product-currency="USD"
+              data-stock="40"
+            >
+              <header>
+                <h3>Conference Dinner Ticket - July 16</h3>
+                <p>Meal Ticket</p>
+              </header>
+
+              <dl>
+                <dt>Event</dt>
+                <dd>Conference Dinner &amp; Awards Ceremony</dd>
+
+                <dt>Date &amp; Time</dt>
+                <dd><time datetime="2026-07-16T19:00">July 16 - 7:00 PM - 10:00 PM</time></dd>
+
+                <dt>Venue</dt>
+                <dd>The Grand Dining Room, Hotel Marquis</dd>
+
+                <dt>Price</dt>
+                <dd>
+                  <strong>Included</strong> for fully registered attendees<br />
+                  <strong>$65.00 USD</strong> for additional guests / day pass holders
+                </dd>
+
+                <dt>Availability</dt>
+                <dd>40 tickets remaining</dd>
+              </dl>
+
+              <p>
+                Join us for a formal dinner celebrating the conference community.
+                Includes a three course meal, open bar, and the Best Paper &amp;
+                Best Poster award presentations.
+              </p>
+
+              <form
+                method="post"
+                action="#cart"
+                data-ajax-endpoint="/api/v1/cart/items"
+                data-ajax-method="POST"
+              >
+                <input type="hidden" name="product_id"   value="DINNER-001" />
+                <input type="hidden" name="product_type" value="meal" />
+                <input type="hidden" name="product_name" value="Conference Dinner Ticket - July 16" />
+                <input type="hidden" name="unit_price"   value="65.00" />
+                <input type="hidden" name="currency"     value="USD" />
+
+                <div>
+                  <label for="qty-DINNER-001">Quantity</label>
+                  <input
+                    type="number"
+                    id="qty-DINNER-001"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    max="6"
+                    step="1"
+                  />
+                </div>
+
+                <button type="submit" name="action" value="add-to-cart">
+                  Add to Cart
+                </button>
+              </form>
+            </article>
+          </li>
+
+          <!-- PRODUCT 5 -->
+          <li>
+            <article
+              id="product-MERCH-TSHIRT"
+              data-product-id="MERCH-TSHIRT"
+              data-product-type="merch"
+              data-product-name="Conference 2026 T-Shirt"
+              data-product-price="28.00"
+              data-product-currency="USD"
+              data-stock="85"
+            >
+              <header>
+                <h3>Conference 2026 T-Shirt</h3>
+                <p>Merchandise</p>
+              </header>
+
+              <dl>
+                <dt>Material</dt>
+                <dd>100% organic cotton, pre-washed</dd>
+
+                <dt>Colours</dt>
+                <dd>Navy, Slate Grey, White</dd>
+
+                <dt>Sizes</dt>
+                <dd>XS, S, M, L, XL, XXL, 3XL</dd>
+
+                <dt>Price</dt>
+                <dd><strong>$28.00 USD</strong></dd>
+
+                <dt>Availability</dt>
+                <dd>In Stock</dd>
+              </dl>
+
+              <p>
+                The official Conference 2026 tee featuring the symposium logo and theme.
+                Printed on demand - allow 4-6 weeks for delivery after the event,
+                or collect at the merchandise booth on-site.
+              </p>
+
+              <form
+                method="post"
+                action="#cart"
+                data-ajax-endpoint="/api/v1/cart/items"
+                data-ajax-method="POST"
+              >
+                <input type="hidden" name="product_id"   value="MERCH-TSHIRT" />
+                <input type="hidden" name="product_type" value="merch" />
+                <input type="hidden" name="product_name" value="Conference 2026 T-Shirt" />
+                <input type="hidden" name="unit_price"   value="28.00" />
+                <input type="hidden" name="currency"     value="USD" />
+
+                <div>
+                  <label for="size-MERCH-TSHIRT">Size</label>
+                  <select id="size-MERCH-TSHIRT" name="size" required>
+                    <option value="" disabled selected>- Select size -</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                    <option value="3XL">3XL</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="colour-MERCH-TSHIRT">Colour</label>
+                  <select id="colour-MERCH-TSHIRT" name="colour" required>
+                    <option value="" disabled selected>- Select colour -</option>
+                    <option value="navy">Navy</option>
+                    <option value="grey">Slate Grey</option>
+                    <option value="white">White</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="qty-MERCH-TSHIRT">Quantity</label>
+                  <input
+                    type="number"
+                    id="qty-MERCH-TSHIRT"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    max="10"
+                    step="1"
+                  />
+                </div>
+
+                <button type="submit" name="action" value="add-to-cart">
+                  Add to Cart
+                </button>
+              </form>
+            </article>
+          </li>
+        </ol>  
+      </section>
+
+
+      <!-- 
+           SECTION 3 - SHOPPING CART
+           Each row's remove form targets DELETE /api/v1/cart/items/{id}
+       -->
+      <section id="cart">
+        <header>
+          <h2>Your Cart</h2>
+          <p id="cart-item-count">3 items in your cart</p>
+        </header>
+
+        <!-- Empty-cart message - JS toggles hidden/visible -->
+        <p id="cart-empty-message" hidden>
+          Your cart is empty.
+          <a href="#product-catalog">Browse the store</a> to add items.
+        </p>
+
+        <!-- Cart item table -->
+        <div id="cart-contents">
+          <table id="cart-table">
+            <caption>Items currently in your shopping cart</caption>
+
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Details</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Line Total</th>
+                <th scope="col">Remove</th>
+              </tr>
+            </thead>
+
+            <tbody id="cart-body">
+
+              <!-- Cart Row 1 -->
+              <tr
+                id="cart-row-WRK-001"
+                data-cart-item-id="cart-item-001"
+                data-product-id="WRK-001"
+                data-product-type="workshop"
+                data-unit-price="49.00"
+                data-currency="USD"
+              >
+                <th scope="row">
+                  Inclusive Design Methods for Researchers
+                  <br />
+                  <small>Workshop Seat - WRK-001</small>
+                </th>
+                <td>
+                  <dl>
+                    <dt>Date</dt>
+                    <dd><time datetime="2026-07-15T14:00">Jul 15 - 2:00 PM</time></dd>
+                  </dl>
+                </td>
+                <td data-unit-price-display>$49.00</td>
+                <td>
+                  <!-- Inline quantity update form - PATCH /api/v1/cart/items/{id} -->
+                  <form
+                    method="post"
+                    action="#cart"
+                    data-ajax-endpoint="/api/v1/cart/items/cart-item-001"
+                    data-ajax-method="PATCH"
+                  >
+                    <input type="hidden" name="_method"      value="PATCH" />
+                    <input type="hidden" name="cart_item_id" value="cart-item-001" />
+                    <input type="hidden" name="product_id"   value="WRK-001" />
+
+                    <label for="cart-qty-WRK-001">Quantity</label>
+                    <input
+                      type="number"
+                      id="cart-qty-WRK-001"
+                      name="quantity"
+                      value="1"
+                      min="1"
+                      max="12"
+                      step="1"
+                    />
+                    <button type="submit" name="action" value="update-qty">Update</button>
+                  </form>
+                </td>
+                <td data-line-total-display>$49.00</td>
+                <td>
+                  <!-- Remove form - DELETE /api/v1/cart/items/{id} -->
+                  <form
+                    method="post"
+                    action="#cart"
+                    data-ajax-endpoint="/api/v1/cart/items/cart-item-001"
+                    data-ajax-method="DELETE"
+                  >
+                    <input type="hidden" name="_method"      value="DELETE" />
+                    <input type="hidden" name="cart_item_id" value="cart-item-001" />
+                    <input type="hidden" name="product_id"   value="WRK-001" />
+                    <button type="submit" name="action" value="remove">
+                      Remove
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
+              <!-- Cart Row 2 -->
+              <tr
+                id="cart-row-DINNER-001"
+                data-cart-item-id="cart-item-002"
+                data-product-id="DINNER-001"
+                data-product-type="meal"
+                data-unit-price="65.00"
+                data-currency="USD"
+              >
+                <th scope="row">
+                  Conference Dinner Ticket - July 16
+                  <br />
+                  <small>Meal Ticket - DINNER-001</small>
+                </th>
+                <td>
+                  <dl>
+                    <dt>Date</dt>
+                    <dd><time datetime="2026-07-16T19:00">Jul 16 - 7:00 PM</time></dd>
+                    <dt>Venue</dt>
+                    <dd>Hotel Marquis</dd>
+                  </dl>
+                </td>
+                <td data-unit-price-display>$65.00</td>
+                <td>
+                  <form
+                    method="post"
+                    action="#cart"
+                    data-ajax-endpoint="/api/v1/cart/items/cart-item-002"
+                    data-ajax-method="PATCH"
+                  >
+                    <input type="hidden" name="_method"      value="PATCH" />
+                    <input type="hidden" name="cart_item_id" value="cart-item-002" />
+                    <input type="hidden" name="product_id"   value="DINNER-001" />
+
+                    <label for="cart-qty-DINNER-001">Quantity</label>
+                    <input
+                      type="number"
+                      id="cart-qty-DINNER-001"
+                      name="quantity"
+                      value="2"
+                      min="1"
+                      max="6"
+                      step="1"
+                    />
+                    <button type="submit" name="action" value="update-qty">Update</button>
+                  </form>
+                </td>
+                <td data-line-total-display>$130.00</td>
+                <td>
+                  <form
+                    method="post"
+                    action="#cart"
+                    data-ajax-endpoint="/api/v1/cart/items/cart-item-002"
+                    data-ajax-method="DELETE"
+                  >
+                    <input type="hidden" name="_method"      value="DELETE" />
+                    <input type="hidden" name="cart_item_id" value="cart-item-002" />
+                    <input type="hidden" name="product_id"   value="DINNER-001" />
+                    <button type="submit" name="action" value="remove">
+                      Remove
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
+              <!-- Cart Row 3 -->
+              <tr
+                id="cart-row-MERCH-TSHIRT"
+                data-cart-item-id="cart-item-003"
+                data-product-id="MERCH-TSHIRT"
+                data-product-type="merch"
+                data-unit-price="28.00"
+                data-currency="USD"
+              >
+                <th scope="row">
+                  Conference 2026 T-Shirt
+                  <br />
+                  <small>Merchandise - MERCH-TSHIRT</small>
+                </th>
+                <td>
+                  <dl>
+                    <dt>Size</dt>
+                    <dd>M</dd>
+                    <dt>Colour</dt>
+                    <dd>Navy</dd>
+                  </dl>
+                </td>
+                <td data-unit-price-display>$28.00</td>
+                <td>
+                  <form
+                    method="post"
+                    action="#cart"
+                    data-ajax-endpoint="/api/v1/cart/items/cart-item-003"
+                    data-ajax-method="PATCH"
+                  >
+                    <input type="hidden" name="_method"      value="PATCH" />
+                    <input type="hidden" name="cart_item_id" value="cart-item-003" />
+                    <input type="hidden" name="product_id"   value="MERCH-TSHIRT" />
+
+                    <label for="cart-qty-MERCH-TSHIRT">Quantity</label>
+                    <input
+                      type="number"
+                      id="cart-qty-MERCH-TSHIRT"
+                      name="quantity"
+                      value="1"
+                      min="1"
+                      max="10"
+                      step="1"
+                    />
+                    <button type="submit" name="action" value="update-qty">Update</button>
+                  </form>
+                </td>
+                <td data-line-total-display>$28.00</td>
+                <td>
+                  <form
+                    method="post"
+                    action="#cart"
+                    data-ajax-endpoint="/api/v1/cart/items/cart-item-003"
+                    data-ajax-method="DELETE"
+                  >
+                    <input type="hidden" name="_method"      value="DELETE" />
+                    <input type="hidden" name="cart_item_id" value="cart-item-003" />
+                    <input type="hidden" name="product_id"   value="MERCH-TSHIRT" />
+                    <button type="submit" name="action" value="remove">
+                      Remove
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <th scope="row" colspan="4">Subtotal</th>
+                <td id="cart-subtotal" data-subtotal="207.00">$207.00</td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" colspan="4">Estimated Tax (8.625% CA)</th>
+                <td id="cart-tax" data-tax-rate="0.08625">$17.85</td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" colspan="4">
+                  <strong>Estimated Total</strong>
+                </th>
+                <td id="cart-total"><strong>$224.85</strong></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <!-- Cart-level actions -->
+          <div id="cart-actions">
+            <!-- Clear entire cart - DELETE /api/v1/cart -->
+            <form
+              method="post"
+              action="#cart"
+              id="clear-cart-form"
+              data-ajax-endpoint="/api/v1/cart"
+              data-ajax-method="DELETE"
+            >
+              <input type="hidden" name="_method" value="DELETE" />
+              <button type="submit" name="action" value="clear-cart">
+                Clear Cart
+              </button>
+            </form>
+
+            <a href="#product-catalog">Continue Shopping</a>
+            <a href="#checkout">Proceed to Checkout →</a>
+          </div>
+        </div>
+      </section>
+
+
+      <!--
+           SECTION 4 — CHECKOUT 
+           POST payload to /api/v1/orders via AJAX 
+      -->
+      <section id="checkout">
+        <header>
+          <h2>Checkout</h2>
+          <p>Review your order and complete your purchase below.</p>
+        </header>
+
+        <form
+          id="checkout-form"
+          method="post"
+          action="#"
+          novalidate
+          data-ajax-endpoint="/api/v1/orders"
+          data-ajax-method="POST"
+        >
+
+          <!-- Cart snapshot — JS will populate these before submission -->
+          <input type="hidden" name="cart_snapshot"  id="checkout-cart-snapshot"  value="" />
+          <input type="hidden" name="subtotal"       id="checkout-subtotal"       value="207.00" />
+          <input type="hidden" name="tax"            id="checkout-tax"            value="17.85" />
+          <input type="hidden" name="order_total"    id="checkout-order-total"    value="224.85" />
+          <input type="hidden" name="currency"       value="USD" />
+
+          <!-- Order Summary -->
+          <fieldset>
+            <legend>Order Summary</legend>
+
+            <table id="checkout-summary-table">
+              <caption>Your order</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Item</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Inclusive Design Methods for Researchers (WRK-001)</td>
+                  <td>1</td>
+                  <td>$49.00</td>
+                </tr>
+                <tr>
+                  <td>Conference Dinner Ticket - July 16 (DINNER-001)</td>
+                  <td>2</td>
+                  <td>$130.00</td>
+                </tr>
+                <tr>
+                  <td>Conference 2026 T-Shirt - M / Navy (MERCH-TSHIRT)</td>
+                  <td>1</td>
+                  <td>$28.00</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row" colspan="2">Subtotal</th>
+                  <td>$207.00</td>
+                </tr>
+                <tr>
+                  <th scope="row" colspan="2">Tax</th>
+                  <td>$17.85</td>
+                </tr>
+                <tr>
+                  <th scope="row" colspan="2"><strong>Total</strong></th>
+                  <td><strong>$224.85 USD</strong></td>
+                </tr>
+              </tfoot>
+            </table>
+          </fieldset>
+
+          <!-- Contact & Billing -->
+          <fieldset>
+            <legend>Contact &amp; Billing Information</legend>
+
+            <div>
+              <label for="billing-name">
+                Full Name <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="text"
+                id="billing-name"
+                name="billing_name"
+                autocomplete="name"
+                required
+                placeholder="e.g. Jane Doe"
+              />
+            </div>
+
+            <div>
+              <label for="billing-email">
+                Email Address <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="email"
+                id="billing-email"
+                name="billing_email"
+                autocomplete="email"
+                required
+                placeholder="e.g. jane.doe@university.edu"
+              />
+            </div>
+
+            <div>
+              <label for="billing-address">
+                Billing Address <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="text"
+                id="billing-address"
+                name="billing_address"
+                autocomplete="street-address"
+                required
+                placeholder="Street address"
+              />
+            </div>
+
+            <div>
+              <label for="billing-city">City <abbr title="required">*</abbr></label>
+              <input
+                type="text"
+                id="billing-city"
+                name="billing_city"
+                autocomplete="address-level2"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="billing-state">State / Province <abbr title="required">*</abbr></label>
+              <input
+                type="text"
+                id="billing-state"
+                name="billing_state"
+                autocomplete="address-level1"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="billing-zip">Postal / ZIP Code <abbr title="required">*</abbr></label>
+              <input
+                type="text"
+                id="billing-zip"
+                name="billing_zip"
+                autocomplete="postal-code"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="billing-country">Country <abbr title="required">*</abbr></label>
+              <select id="billing-country" name="billing_country" autocomplete="country" required>
+                <option value="" disabled selected>— Select —</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GB">United Kingdom</option>
+                <option value="AU">Australia</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+
+          </fieldset>
+
+          <!-- Delivery Preference -->
+          <fieldset>
+            <legend>Delivery Preference</legend>
+            <p>Physical items can be collected on-site or shipped after the event.</p>
+
+            <div>
+              <input
+                type="radio"
+                id="delivery-onsite"
+                name="delivery_preference"
+                value="on-site"
+                checked
+              />
+              <label for="delivery-onsite">Collect on-site at the merchandise booth (no shipping charge)</label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="delivery-ship"
+                name="delivery_preference"
+                value="ship"
+              />
+              <label for="delivery-ship">Ship to my billing address after the event (shipping calculated at next step)</label>
+            </div>
+          </fieldset>
+
+            <!-- JS populates this after promo validation -->
+            <p id="promo-result" hidden></p>
+          </fieldset>
+
+          <!-- Payment -->
+          <fieldset>
+            <legend>Payment Method</legend>
+
+            <div>
+              <fieldset>
+                <legend>Select Payment Method</legend>
+                <div>
+                  <input type="radio" id="pay-card" name="payment_method" value="card" checked />
+                  <label for="pay-card">Credit / Debit Card</label>
+                </div>
+                <div>
+                  <input type="radio" id="pay-paypal" name="payment_method" value="paypal" />
+                  <label for="pay-paypal">PayPal</label>
+                </div>
+                <div>
+                  <input type="radio" id="pay-invoice" name="payment_method" value="invoice" />
+                  <label for="pay-invoice">Invoice (institutional purchase orders only)</label>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Card fields — JS shows/hides based on payment method selection -->
+            <div id="card-fields">
+              <div>
+                <label for="card-name">Name on Card <abbr title="required">*</abbr></label>
+                <input
+                  type="text"
+                  id="card-name"
+                  name="card_name"
+                  autocomplete="cc-name"
+                  placeholder="As it appears on the card"
+                />
+              </div>
+
+              <div>
+                <label for="card-number">Card Number <abbr title="required">*</abbr></label>
+                <input
+                  type="text"
+                  id="card-number"
+                  name="card_number"
+                  autocomplete="cc-number"
+                  inputmode="numeric"
+                  maxlength="19"
+                  placeholder="1234 5678 9012 3456"
+                />
+              </div>
+
+              <div>
+                <label for="card-expiry">Expiry Date <abbr title="required">*</abbr></label>
+                <input
+                  type="text"
+                  id="card-expiry"
+                  name="card_expiry"
+                  autocomplete="cc-exp"
+                  inputmode="numeric"
+                  maxlength="5"
+                  placeholder="MM/YY"
+                />
+              </div>
+
+              <div>
+                <label for="card-cvc">CVC / Security Code <abbr title="required">*</abbr></label>
+                <input
+                  type="text"
+                  id="card-cvc"
+                  name="card_cvc"
+                  autocomplete="cc-csc"
+                  inputmode="numeric"
+                  maxlength="4"
+                  placeholder="3 or 4 digits"
+                />
+              </div>
+            </div>
+
+          </fieldset>
+
+          <!-- Consent -->
+          <fieldset>
+            <legend>Terms &amp; Confirmation</legend>
+
+            <div>
+              <input
+                type="checkbox"
+                id="agree-purchase-terms"
+                name="agree_purchase_terms"
+                value="yes"
+                required
+              />
+              <label for="agree-purchase-terms">
+                I have reviewed my order and agree to the
+                <a href="#" target="_blank" rel="noopener noreferrer">Purchase Terms</a>,
+                <a href="#" target="_blank" rel="noopener noreferrer">Refund Policy</a>,
+                and <a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                <abbr title="required">*</abbr>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="receipt-email"
+                name="receipt_email"
+                value="yes"
+                checked
+              />
+              <label for="receipt-email">
+                Send me a receipt by email.
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Submit -->
+          <div>
+            <button
+              type="submit"
+              id="place-order-btn"
+              name="action"
+              value="place-order"
+            >
+              Place Order - $224.85 USD
+            </button>
+            <a href="#cart">← Back to Cart</a>
+          </div>
+
+          <!-- Order status feedback - JS updates this after AJAX response -->
+          <div id="order-feedback" role="status"></div>
+
+        </form>
+      </section>
+
+    </main>
+
+
+    <!-- SITE FOOTER  -->
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#schedule">Schedule</a></li>
+          <li><a href="catalog.html">Session Catalog</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="store.html">Store &amp; Cart</a></li>
+        </ul>
+      </nav>
+
+      <address>
+        Conference 2026 Secretariat<br />
+        123 Convention Way, Innovation District<br />
+        San Francisco, CA 94102, USA<br />
+        <a href="mailto:info@conference.com">info@conference.com</a>
+      </address>
+
+      <small>&copy; 2026 Conference 2026. All rights reserved.</small>
+    </footer>
+
+  </body>
+</html>
