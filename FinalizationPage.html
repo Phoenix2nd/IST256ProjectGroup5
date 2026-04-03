@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Conference 2026 - Finalize your session registrations, participation type, and attendance confirmation." />
+    <title>Finalization - Conference 2026</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+
+    <!-- SITE HEADER & NAVIGATION -->
+    <header>
+      <div>
+        <a href="index.html">
+          <strong>Conference 2026</strong>
+        </a>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#schedule">Schedule</a></li>
+          <li><a href="catalog.html">Session Catalog</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="store.html">Store &amp; Cart</a></li>
+          <li><a href="finalize.html">Finalize</a></li>
+        </ul>
+      </nav>
+
+      <button type="button" id="mobile-menu-toggle">Menu</button>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+
+      <!-- Page heading -->
+      <section>
+        <hgroup>
+          <h1>Finalize Your Registration</h1>
+          <p>
+            Complete this page to lock in your session selections,
+            choose how you will attend, and confirm your participation
+            for Conference 2026 - July 14&ndash;17, 2026 &middot; San Francisco, CA.
+          </p>
+        </hgroup>
+
+        <nav>
+          <ul>
+            <li><a href="#step-confirmation">Step 1 - Confirm Details</a></li>
+            <li><a href="#step-sessions">Step 2 - Session Registration</a></li>
+            <li><a href="#step-participation">Step 3 - Participation Type</a></li>
+            <li><a href="#step-submit">Step 4 - Submit</a></li>
+          </ul>
+        </nav>
+      </section>
+
+
+      <!-- FINALIZATION FORM -->
+      <form
+        id="finalization-form"
+        method="post"
+        action="#"
+        novalidate
+        data-ajax-endpoint="/api/v1/finalize"
+        data-ajax-method="POST"
+      >
+
+        <!-- Hidden field — ties this submission to the attendee record -->
+        <input type="hidden" name="attendee_id" id="attendee-id" value="" />
+        <input type="hidden" name="registration_id" id="registration-id" value="" />
+
+
+        <!-- STEP 1 - CONFIRMATION DETAILS -->
+        <section id="step-confirmation">
+          <header>
+            <h2>Step 1 - Confirm Your Details</h2>
+            <p>
+              Review and confirm the personal information we have on file.
+              Fields marked <abbr title="required">*</abbr> are required.
+            </p>
+          </header>
+
+          <fieldset>
+            <legend>Personal Information</legend>
+
+            <div>
+              <label for="full-name">
+                Full Name <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="text"
+                id="full-name"
+                name="full_name"
+                autocomplete="name"
+                placeholder="e.g. Jane Doe"
+                required
+                minlength="2"
+                maxlength="120"
+              />
+            </div>
+
+            <div>
+              <label for="email">
+                Email Address <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                placeholder="e.g. jane.doe@university.edu"
+                required
+              />
+              <small>Confirmation and joining instructions will be sent to this address.</small>
+            </div>
+
+            <div>
+              <label for="phone">
+                Phone Number <span>(Optional)</span>
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                autocomplete="tel"
+                placeholder="e.g. +1 (555) 000-0000"
+              />
+            </div>
+
+            <div>
+              <label for="institution">
+                Institution or Organization <abbr title="required">*</abbr>
+              </label>
+              <input
+                type="text"
+                id="institution"
+                name="institution"
+                autocomplete="organization"
+                placeholder="e.g. MIT, Acme Corp"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="attendee-type">
+                Attendee Type <abbr title="required">*</abbr>
+              </label>
+              <select id="attendee-type" name="attendee_type" required>
+                <option value="" disabled selected>- Select one -</option>
+                <optgroup label="Student">
+                  <option value="undergraduate">Undergraduate Student</option>
+                  <option value="graduate-masters">Graduate Student (Master's)</option>
+                  <option value="graduate-phd">Graduate Student (PhD)</option>
+                  <option value="postdoc">Postdoctoral Researcher</option>
+                </optgroup>
+                <optgroup label="Professional">
+                  <option value="faculty">Faculty / Academic Staff</option>
+                  <option value="researcher">Researcher</option>
+                  <option value="industry">Industry Professional</option>
+                  <option value="independent">Independent</option>
+                </optgroup>
+                <optgroup label="Other">
+                  <option value="press">Press / Media</option>
+                  <option value="other">Other</option>
+                </optgroup>
+              </select>
+            </div>
+
+          </fieldset>
+        </section>
+
+
+        <!-- STEP 2 - SESSION REGISTRATION -->
+        <section id="step-sessions">
+          <header>
+            <h2>Step 2 - Register for Sessions</h2>
+            <p>
+              Select the sessions you plan to attend.
+              Workshops have limited seats and may carry an additional fee payable
+              via the <a href="store.html">Store</a>.
+              Sessions marked <strong>Free</strong> are included with your base registration.
+            </p>
+          </header>
+
+          <!-- Day 1 -->
+          <fieldset>
+            <legend>Day 1 - Tuesday, July 14, 2026</legend>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-keynote-open"
+                name="sessions"
+                value="CONF-KEYNOTE-01"
+              />
+              <label for="sess-keynote-open">
+                2:00 PM - Opening Keynote: The Next Decade of Discovery
+                <small>Grand Ballroom A &middot; 90 min &middot; Free</small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-welcome-reception"
+                name="sessions"
+                value="EVT-RECEPTION-01"
+              />
+              <label for="sess-welcome-reception">
+                6:00 PM - Welcome Reception &amp; Networking
+                <small>Rooftop Terrace &middot; 2 hr &middot; Free &middot; Smart casual</small>
+              </label>
+            </div>
+
+          </fieldset>
+
+          <!-- Day 2 -->
+          <fieldset>
+            <legend>Day 2 - Wednesday, July 15, 2026</legend>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-keynote-ai"
+                name="sessions"
+                value="CONF-002"
+              />
+              <label for="sess-keynote-ai">
+                9:00 AM - Keynote: Responsible AI in Research
+                <small>Grand Ballroom A &middot; 60 min &middot; Free &middot; Speaker: Marcus Osei, DeepMind</small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-paper-a"
+                name="sessions"
+                value="CONF-001"
+              />
+              <label for="sess-paper-a">
+                10:30 AM — Paper Session A: Computational Biology
+                <small>Room 101 &middot; 90 min &middot; Free &middot; Chair: Prof. Priya Nair</small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-wrk-001"
+                name="sessions"
+                value="WRK-001"
+              />
+              <label for="sess-wrk-001">
+                2:00 PM - Workshop: Inclusive Design Methods for Researchers
+                <small>Workshop Room B &middot; 2 hr &middot; $49.00 &middot; Capacity: 30</small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-panel-industry"
+                name="sessions"
+                value="CONF-PANEL-01"
+              />
+              <label for="sess-panel-industry">
+                4:30 PM - Panel: Bridging Academia and Industry
+                <small>Grand Ballroom B &middot; 90 min &middot; Free</small>
+              </label>
+            </div>
+
+          </fieldset>
+
+          <!-- Day 3 -->
+          <fieldset>
+            <legend>Day 3 - Thursday, July 16, 2026</legend>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-poster"
+                name="sessions"
+                value="EVT-POSTER-01"
+              />
+              <label for="sess-poster">
+                10:00 AM - Poster Session &amp; Exhibition
+                <small>Exhibition Hall &middot; 2 hr &middot; Free &middot; 84 posters</small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-wrk-002"
+                name="sessions"
+                value="WRK-002"
+              />
+              <label for="sess-wrk-002">
+                1:30 PM - Workshop: Epidemiological Modelling with Python
+                <small>Computer Lab 1 &middot; 3 hr &middot; $75.00 &middot; <strong>Sold Out</strong></small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-track-sustain"
+                name="sessions"
+                value="CONF-TRACK-01"
+              />
+              <label for="sess-track-sustain">
+                1:30 PM - Breakout Track: Sustainability &amp; Materials Science
+                <small>Room 204 &middot; 2 hr &middot; Free</small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-dinner"
+                name="sessions"
+                value="EVT-DINNER-01"
+              />
+              <label for="sess-dinner">
+                7:00 PM - Conference Dinner &amp; Awards Ceremony
+                <small>Hotel Marquis &middot; 3 hr &middot; Included for full registrants &middot; Formal</small>
+              </label>
+            </div>
+
+          </fieldset>
+
+          <!-- Day 4 -->
+          <fieldset>
+            <legend>Day 4 - Friday, July 17, 2026</legend>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-paper-b"
+                name="sessions"
+                value="CONF-003"
+              />
+              <label for="sess-paper-b">
+                9:00 AM - Paper Session B: Epidemiology &amp; Public Health
+                <small>Room 101 &middot; 90 min &middot; Free &middot; Chair: Dr. Amara Diallo</small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-keynote-close"
+                name="sessions"
+                value="CONF-KEYNOTE-02"
+              />
+              <label for="sess-keynote-close">
+                11:00 AM - Closing Keynote: From Here to What's Next
+                <small>Grand Ballroom A &middot; 60 min &middot; Free</small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="sess-farewell"
+                name="sessions"
+                value="EVT-FAREWELL-01"
+              />
+              <label for="sess-farewell">
+                12:15 PM — Farewell Lunch
+                <small>Foyer &amp; Outdoor Terrace &middot; Free</small>
+              </label>
+            </div>
+
+          </fieldset>
+        </section>
+
+
+        <!-- STEP 3 - PARTICIPATION TYPE -->
+        <section id="step-participation">
+          <header>
+            <h2>Step 3 - Participation Type</h2>
+            <p>
+              Choose how you will attend Conference 2026.
+              Your selection determines your access level, badge type,
+              and the joining instructions you will receive.
+            </p>
+          </header>
+
+          <!-- Participation mode -->
+          <fieldset>
+            <legend>
+              How will you attend? <abbr title="required">*</abbr>
+            </legend>
+
+            <div>
+              <input
+                type="radio"
+                id="attend-in-person"
+                name="participation_type"
+                value="in-person"
+                required
+              />
+              <label for="attend-in-person">
+                In-Person
+                <small>
+                  Attend all sessions on-site at the San Francisco Convention Center.
+                  Full access to meals, networking events, and the poster exhibition.
+                </small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="attend-virtual"
+                name="participation_type"
+                value="virtual"
+              />
+              <label for="attend-virtual">
+                Virtual
+                <small>
+                  Join keynotes, talks, and panels via livestream.
+                  You will receive a unique streaming link for each session you select.
+                  Workshops are in-person only.
+                </small>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="attend-vip"
+                name="participation_type"
+                value="vip"
+              />
+              <label for="attend-vip">
+                VIP
+                <small>
+                  In-person attendance with priority seating, a dedicated lounge,
+                  private meet-and-greet with keynote speakers, and premium catering.
+                  Requires prior VIP authorization.
+                </small>
+              </label>
+            </div>
+
+        <!-- STEP 4 — REVIEW & SUBMIT -->
+        <section id="step-submit">
+          <header>
+            <h2>Step 4 - Review &amp; Confirm</h2>
+            <p>
+              Review your selections below before submitting.
+              Once confirmed, you will receive a full itinerary
+              and joining instructions at your registered email address.
+            </p>
+          </header>
+
+          <!-- Summary table - JS will populate this from form values -->
+          <fieldset>
+            <legend>Your Confirmation Summary</legend>
+
+            <table id="confirmation-summary">
+              <caption>Finalization summary - review before submitting</caption>
+              <tbody>
+                <tr>
+                  <th scope="row">Name</th>
+                  <td id="summary-name"><em>Not entered</em></td>
+                </tr>
+                <tr>
+                  <th scope="row">Email</th>
+                  <td id="summary-email"><em>Not entered</em></td>
+                </tr>
+                <tr>
+                  <th scope="row">Institution</th>
+                  <td id="summary-institution"><em>Not entered</em></td>
+                </tr>
+                <tr>
+                  <th scope="row">Attendee Type</th>
+                  <td id="summary-attendee-type"><em>Not selected</em></td>
+                </tr>
+                <tr>
+                  <th scope="row">Participation Type</th>
+                  <td id="summary-participation"><em>Not selected</em></td>
+                </tr>
+                <tr>
+                  <th scope="row">Sessions Selected</th>
+                  <td id="summary-sessions"><em>None selected</em></td>
+                </tr>
+                <tr>
+                  <th scope="row">Time Zone</th>
+                  <td id="summary-timezone"><em>Not specified</em></td>
+                </tr>
+              </tbody>
+            </table>
+
+          </fieldset>
+
+          <!-- Consent -->
+          <fieldset>
+            <legend>Consent &amp; Agreement</legend>
+
+            <div>
+              <input
+                type="checkbox"
+                id="agree-terms"
+                name="agree_terms"
+                value="yes"
+                required
+              />
+              <label for="agree-terms">
+                I confirm that the information above is accurate and I agree to the
+                <a href="#" target="_blank" rel="noopener noreferrer">Conference Terms &amp; Conditions</a>
+                and <a href="#" target="_blank" rel="noopener noreferrer">Code of Conduct</a>.
+                <abbr title="required">*</abbr>
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="agree-photo"
+                name="agree_photo"
+                value="yes"
+              />
+              <label for="agree-photo">
+                I consent to being photographed or filmed during the conference
+                for use in official conference materials.
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                id="confirm-attendance"
+                name="confirm_attendance"
+                value="yes"
+                required
+              />
+              <label for="confirm-attendance">
+                I confirm my attendance and understand that cancellations after
+                <time datetime="2026-06-01">June 1, 2026</time>
+                are non-refundable.
+                <abbr title="required">*</abbr>
+              </label>
+            </div>
+
+          </fieldset>
+
+          <!-- Form actions -->
+          <div>
+            <button type="submit" id="finalize-btn" name="action" value="finalize">
+              Confirm &amp; Finalize Registration
+            </button>
+            <button type="reset" id="reset-btn">
+              Clear Form
+            </button>
+            <a href="register.html">← Back to Registration</a>
+          </div>
+
+          <!-- JS injects feedback here after submit -->
+          <div id="finalize-feedback"></div>
+
+        </section>
+
+      </form>
+
+    </main>
+
+
+    <!-- SITE FOOTER -->
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#schedule">Schedule</a></li>
+          <li><a href="catalog.html">Session Catalog</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="store.html">Store &amp; Cart</a></li>
+          <li><a href="finalize.html">Finalize</a></li>
+        </ul>
+      </nav>
+
+      <address>
+        Conference 2026 Secretariat<br />
+        123 Convention Way, Innovation District<br />
+        San Francisco, CA 94102, USA<br />
+        <a href="mailto:info@conference.com">info@conference.com</a>
+      </address>
+
+      <small>&copy; 2026 Conference 2026. All rights reserved.</small>
+    </footer>
+
+  </body>
+</html>
