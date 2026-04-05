@@ -263,3 +263,119 @@ small {
     flex-direction: column;
   }
 }
+
+form section {
+  margin-bottom: 2rem;
+}
+
+
+fieldset div {
+  margin-bottom: 15px;
+}
+
+
+abbr[title="required"] {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 5px #3b82f6;
+}
+
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+
+fieldset div label {
+  display: inline-block;
+  cursor: pointer;
+}
+
+
+fieldset div {
+  background: #0f172a;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #1e293b;
+  transition: 0.2s;
+}
+
+fieldset div:hover {
+  border-color: #3b82f6;
+  background: #111827;
+}
+
+#confirmation-summary th {
+  text-align: left;
+  width: 35%;
+  color: #93c5fd;
+}
+
+#confirmation-summary td {
+  color: #e5e5e5;
+}
+
+#finalize-btn {
+  background: #22c55e;
+}
+
+#finalize-btn:hover {
+  background: #16a34a;
+}
+
+#reset-btn {
+  background: #ef4444;
+  margin-left: 10px;
+}
+
+#reset-btn:hover {
+  background: #dc2626;
+}
+
+#finalize-feedback {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+}
+
+.success {
+  background: #064e3b;
+  color: #34d399;
+  border: 1px solid #10b981;
+}
+
+.error {
+  background: #450a0a;
+  color: #f87171;
+  border: 1px solid #ef4444;
+}
+
+
+@media (max-width: 768px) {
+  form {
+    padding: 0.5rem;
+  }
+
+  fieldset {
+    padding: 0.75rem;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+}
