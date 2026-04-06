@@ -106,6 +106,7 @@ $(function () {
 
     // --- Sync checkout order summary ---
     syncCheckoutSummary(subtotal, tax, total);
+    localStorage.setItem("conferenceCart", JSON.stringify(cart));
   }
 
   /** Rebuild the checkout order-summary table from current cart state. */
