@@ -208,6 +208,54 @@ ReactDOM.createRoot(
 ).render(<FinalizationApp />);
 
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>
+$("#finalization-form").submit(function(e) {
+  e.preventDefault();
+
+  const fullName = $("#full-name").val();
+  const email = $("#email").val();
+  const institution = $("#institution").val();
+  const attendeeType = $("#attendee-type").val();
+
+  const participation = $("input[name='participation_type']:checked").val();
+
+  let sessions = [];
+  $("input[name='sessions']:checked").each(function() {
+    sessions.push($(this).val());
+  });
+
+  if (!fullName || !email || !institution || !attendeeType || !participation) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  const formData = {
+    fullName,
+    email,
+    institution,
+    attendeeType,
+    participation,
+    sessions
+  };
+
+  // ✅ JSON output (for screenshot)
+  console.log("JSON Data:", JSON.stringify(formData, null, 2));
+
+  // ✅ AJAX call (REQUIRED)
+  $.ajax({
+    url: "https://jsonplaceholder.typicode.com/posts",
+    type: "POST",
+    data: JSON.stringify(formData),
+    contentType: "application/json",
+    success: function(response) {
+      alert("Submission successful!");
+      console.log("Server Response:", response);
+    }
+  });
+
+});
+</script>
 </body>
 </html>
