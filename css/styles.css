@@ -1,126 +1,92 @@
+<header>
+  <div class="branding">
+    <strong>Conference 2026</strong>
+    <p>Annual Symposium on Innovation & Discovery</p>
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Schedule</a></li>
+      <li><a href="#">Register</a></li>
+      <li><a href="#">Catalog</a></li>
+      <li><a href="#">Store</a></li>
+    </ul>
+  </nav>
+</header>
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #0b0f1a;
   color: #e5e5e5;
   line-height: 1.6;
+  padding-top: 80px; /* Prevents content from hiding under the fixed header */
 }
 
-
-a {
-  text-decoration: none;
-  color: #3b82f6;
-}
-
-a:hover {
-  color: #60a5fa;
-}
-
+/* 2. Fixed Top Navigation */
 header {
   background-color: #000;
   border-bottom: 3px solid #2563eb;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
+  
+  /* Flexbox settings for horizontal layout */
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
+  
+  /* Fixing it to the top */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 header strong {
-  font-size: 26px;
+  font-size: 24px;
   color: #3b82f6;
+  display: block;
+  line-height: 1;
 }
 
 header p {
   color: #9ca3af;
+  font-size: 0.85rem;
 }
 
+/* 3. Horizontal Menu Items */
 nav ul {
   list-style: none;
-  display: flex;
-  gap: 20px;
+  display: flex; /* Makes the list items horizontal */
+  gap: 25px;     /* Spacing between links */
+  margin: 0;
+  padding: 0;
 }
 
 nav a {
   font-weight: bold;
   color: #e5e5e5;
+  transition: 0.3s;
 }
 
 nav a:hover {
   color: #3b82f6;
 }
 
-
+/* 4. Main Content Area */
 main {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 2rem auto;
   padding: 0 1rem;
 }
 
-
-section {
-  background-color: #111827;
-  padding: 25px;
-  border-radius: 8px;
-  margin-bottom: 25px;
-}
-
-section p {
-  margin-bottom: 1rem;
-}
-
-
-h1 {
-  font-size: 42px;
-  color: #3b82f6;
-}
-
-h2 {
-  color: #60a5fa;
-}
-
-h3 {
-  color: #93c5fd;
-}
-
-
-[role="button"], button {
-  display: inline-block;
-  background: #2563eb;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-[role="button"]:hover,
-button:hover {
-  background: #1d4ed8;
-}
-
-section ul {
-  display: flex;
-  gap: 30px;
-  margin-top: 20px;
-}
-
-section ul li {
-  list-style: none;
-  text-align: center;
-}
-
-section ul strong {
-  font-size: 26px;
-  color: #3b82f6;
-}
-
+/* 5. Article & Section Styles (From your original code) */
 article {
   background: #020617;
   border: 1px solid #1e293b;
@@ -129,253 +95,26 @@ article {
   margin-bottom: 20px;
 }
 
-article header {
-  background: none;
-  padding: 0;
-}
-
 time {
   color: #3b82f6;
   font-weight: bold;
 }
 
-aside {
-  background: #020617;
-  border: 1px solid #1e293b;
-  padding: 20px;
-  border-radius: 6px;
-}
-
-section:last-of-type {
-  background: #000;
-  text-align: center;
-  border: 2px solid #2563eb;
-}
-
-section:last-of-type a {
-  background: #3b82f6;
-  color: white;
-  padding: 12px 25px;
-  border-radius: 6px;
-}
-
-section:last-of-type a:hover {
-  background: #2563eb;
-}
-
-form {
-  background-color: #020617;
-  padding: 1rem;
-  border-radius: 5px;
-  border: 1px solid #1e293b;
-  margin-bottom: 2rem;
-}
-
-fieldset {
-  border: 1px solid #1e293b;
-  padding: 1rem;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #1e293b;
-  background: #020617;
-  color: #e5e5e5;
-  margin-bottom: 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #020617;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-thead {
-  background-color: #2563eb;
-  color: white;
-}
-
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #1e293b;
-}
-
-tbody tr:nth-child(even) {
-  background-color: #0f172a;
-}
-
-footer {
-  background: #000;
-  padding: 25px;
-  border-top: 3px solid #2563eb;
-  margin-top: 2rem;
-}
-
-footer ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-footer a {
-  color: #9ca3af;
-}
-
-footer a:hover {
-  color: #3b82f6;
-}
-
-footer address {
-  margin-top: 15px;
-}
-
-small {
-  color: #6b7280;
-  display: block;
-  margin-top: 15px;
-}
-
+/* 6. Responsive Design */
 @media (max-width: 768px) {
   header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column; /* Stack branding and menu on mobile */
+    text-align: center;
+    padding: 1rem;
   }
 
   nav ul {
-    flex-direction: column;
-    gap: 10px;
+    margin-top: 10px;
+    gap: 15px;
+    font-size: 0.9rem;
   }
-
-  section ul {
-    flex-direction: column;
-  }
-}
-
-form section {
-  margin-bottom: 2rem;
-}
-
-
-fieldset div {
-  margin-bottom: 15px;
-}
-
-
-abbr[title="required"] {
-  color: #ef4444;
-  font-weight: bold;
-}
-
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 5px #3b82f6;
-}
-
-
-input[type="checkbox"],
-input[type="radio"] {
-  width: auto;
-  margin-right: 10px;
-}
-
-
-fieldset div label {
-  display: inline-block;
-  cursor: pointer;
-}
-
-
-fieldset div {
-  background: #0f172a;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #1e293b;
-  transition: 0.2s;
-}
-
-fieldset div:hover {
-  border-color: #3b82f6;
-  background: #111827;
-}
-
-#confirmation-summary th {
-  text-align: left;
-  width: 35%;
-  color: #93c5fd;
-}
-
-#confirmation-summary td {
-  color: #e5e5e5;
-}
-
-#finalize-btn {
-  background: #22c55e;
-}
-
-#finalize-btn:hover {
-  background: #16a34a;
-}
-
-#reset-btn {
-  background: #ef4444;
-  margin-left: 10px;
-}
-
-#reset-btn:hover {
-  background: #dc2626;
-}
-
-#finalize-feedback {
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 5px;
-  display: none;
-}
-
-.success {
-  background: #064e3b;
-  color: #34d399;
-  border: 1px solid #10b981;
-}
-
-.error {
-  background: #450a0a;
-  color: #f87171;
-  border: 1px solid #ef4444;
-}
-
-
-@media (max-width: 768px) {
-  form {
-    padding: 0.5rem;
-  }
-
-  fieldset {
-    padding: 0.75rem;
-  }
-
-  h1 {
-    font-size: 28px;
-  }
-
-  h2 {
-    font-size: 22px;
+  
+  body {
+    padding-top: 120px; /* More space for the taller mobile header */
   }
 }
