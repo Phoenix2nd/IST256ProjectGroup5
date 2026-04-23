@@ -1,120 +1,52 @@
-<header>
-  <div class="branding">
-    <strong>Conference 2026</strong>
-    <p>Annual Symposium on Innovation & Discovery</p>
-  </div>
-
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Schedule</a></li>
-      <li><a href="#">Register</a></li>
-      <li><a href="#">Catalog</a></li>
-      <li><a href="#">Store</a></li>
-    </ul>
-  </nav>
-</header>
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #0b0f1a;
-  color: #e5e5e5;
-  line-height: 1.6;
-  padding-top: 80px; /* Prevents content from hiding under the fixed header */
+  margin: 0;
+  background-color: white;
+  color: blue;
+  font-family: Arial, sans-serif;
 }
 
-/* 2. Fixed Top Navigation */
-header {
-  background-color: #000;
-  border-bottom: 3px solid #2563eb;
-  padding: 0.5rem 2rem;
-  
-  /* Flexbox settings for horizontal layout */
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-  
-  /* Fixing it to the top */
+/* Top navigation bar */
+nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  background-color: white;
+  border-bottom: 2px solid blue;
+  padding: 10px 20px;
   z-index: 1000;
 }
 
-header strong {
-  font-size: 24px;
-  color: #3b82f6;
-  display: block;
-  line-height: 1;
-}
-
-header p {
-  color: #9ca3af;
-  font-size: 0.85rem;
-}
-
-/* 3. Horizontal Menu Items */
-nav ul {
-  list-style: none;
-  display: flex; /* Makes the list items horizontal */
-  gap: 25px;     /* Spacing between links */
-  margin: 0;
-  padding: 0;
-}
-
+/* Navigation links */
 nav a {
+  color: blue;
+  text-decoration: none;
+  margin-right: 15px;
   font-weight: bold;
-  color: #e5e5e5;
-  transition: 0.3s;
 }
 
 nav a:hover {
-  color: #3b82f6;
+  text-decoration: underline;
 }
 
-/* 4. Main Content Area */
+/* Push page content below fixed nav */
 main {
-  max-width: 1100px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-/* 5. Article & Section Styles (From your original code) */
-article {
-  background: #020617;
-  border: 1px solid #1e293b;
+  margin-top: 70px;
   padding: 20px;
-  border-radius: 6px;
-  margin-bottom: 20px;
 }
 
-time {
-  color: #3b82f6;
-  font-weight: bold;
-}
+<body>
 
-/* 6. Responsive Design */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column; /* Stack branding and menu on mobile */
-    text-align: center;
-    padding: 1rem;
-  }
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-  nav ul {
-    margin-top: 10px;
-    gap: 15px;
-    font-size: 0.9rem;
-  }
-  
-  body {
-    padding-top: 120px; /* More space for the taller mobile header */
-  }
-}
+  <main>
+    <h1>Welcome</h1>
+    <p>Your content goes here.</p>
+  </main>
+
+</body>
