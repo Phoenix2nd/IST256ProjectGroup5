@@ -1,97 +1,333 @@
 body {
-  margin: 0;
-  background-color: white;
-  color: blue;
-  font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #0b0f1a; 
+    color: #e5e5e5;
+    line-height: 1.6;
 }
 
-/* Top navigation bar */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  border-bottom: 2px solid blue;
-  padding: 10px 20px;
-  z-index: 1000;
+a {
+    text-decoration: none;
+    color: #3b82f6;
 }
 
-/* Navigation links */
+a:hover {
+    color: #60a5fa;
+}
+
+header {
+    background-color: #000000; 
+    border-bottom: 3px solid #2563eb;
+}
+
+header strong {
+    font-size: 26px;
+    color: #3b82f6;
+}
+
+header p {
+    margin-top: 5px;
+    color: #9ca3af;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 25px;
+}
+
 nav a {
-  color: blue;
-  text-decoration: none;
-  margin-right: 15px;
-  font-weight: bold;
+    color: #e5e5e5;
+    font-weight: bold;
 }
 
 nav a:hover {
-  text-decoration: underline;
+    color: #3b82f6;
 }
 
-/* Push page content below fixed nav */
 main {
-  margin-top: 70px;
-  padding: 20px;
+    padding: 40px;
 }
 
-<body>
+section {
+    background-color: #111827;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="products.html">Products</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+h1 {
+    font-size: 42px;
+    color: #3b82f6;
+}
 
-  <main>
-    <h1>Welcome</h1>
-    <p>Your content goes here.</p>
-  </main>
+h2 {
+    color: #60a5fa;
+}
 
-</body>
+h3 {
+    color: #93c5fd;
+}
+
+[role="button"] {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+[role="button"]:hover {
+    background: #1d4ed8;
+}
+
+
+section ul {
+    display: flex;
+    gap: 40px;
+    margin-top: 25px;
+    padding: 0;
+}
+
+section ul li {
+    list-style: none;
+    text-align: center;
+}
+
+section ul strong {
+    font-size: 28px;
+    color: #3b82f6;
+}
+
+article {
+    background: #020617;
+    border: 1px solid #1e293b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+article header {
+    background: none;
+    padding: 0;
+}
+
+time {
+    color: #3b82f6;
+    font-weight: bold;
+}
+
+
+aside {
+    background: #020617;
+    border: 1px solid #1e293b;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+
+section:last-of-type {
+    background: #000000;
+    text-align: center;
+    border: 2px solid #2563eb;
+}
+
+section:last-of-type a {
+    background: #3b82f6;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+}
+
+section:last-of-type a:hover {
+    background: #2563eb;
+}
+
+
+footer {
+    background: #000000;
+    padding: 30px;
+    border-top: 3px solid #2563eb;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+footer a {
+    color: #9ca3af;
+}
+
+footer a:hover {
+    color: #3b82f6;
+}
+
+footer address {
+    margin-top: 20px;
+}
+
+small {
+    color: #6b7280;
+    display: block;
+    margin-top: 20px;
+}
 
 body {
-  background: white !important;
-  color: blue !important;
-}
-
-/* Make all text blue unless specifically overridden */
-body, p, h1, h2, h3, h4, h5, h6, span, li, a {
-  color: blue;
-}
-
-/* Keep buttons but style them lightly */
-button, input[type="button"], input[type="submit"] {
-  background: white;
-  color: blue;
-  border: 1px solid blue;
-  cursor: pointer;
-}
-
-/* ===== NAVIGATION FIX (moves to top) ===== */
-nav, .navbar, header {
-  position: sticky;   /* keeps it at top when scrolling */
-  top: 0;
-  background: white;
-  border-bottom: 2px solid blue;
-  z-index: 999;
-}
-
-/* Keep nav items horizontal if needed */
-nav ul {
-  list-style: none;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
   margin: 0;
-  padding: 10px;
-  display: flex;
-  gap: 15px;
+  padding: 0;
+  background-color: #f8f8f8;
+  color: #333;
 }
 
-/* Links stay blue */
-nav a {
-  color: blue !important;
+a {
+  color: #0077cc;
   text-decoration: none;
 }
-nav a:hover {
+
+a:hover {
   text-decoration: underline;
+}
+
+
+header {
+  background-color: #fff;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a strong {
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav ul li a {
+  font-weight: 500;
+}
+
+
+main {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1, h2 {
+  margin-bottom: 0.5rem;
+}
+
+section p {
+  margin-bottom: 1rem;
+}
+
+
+form {
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 2rem;
+}
+
+fieldset {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+input, select, textarea, button {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: auto;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #0077cc;
+  color: white;
+}
+
+th, td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1.5rem 2rem;
+  margin-top: 2rem;
+}
+
+footer a {
+  color: #fff;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+
+header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
