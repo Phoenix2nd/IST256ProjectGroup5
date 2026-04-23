@@ -1,25 +1,29 @@
 /* Reset and Base Styles */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff; /* Clean white background */
+    background-color: #ffffff; /* White background */
     color: #333333;
     line-height: 1.6;
 }
 
-/* Header & Navigation */
+/* Header - Spans the full width of the screen */
 header {
-    background-color: #ffffff; 
-    border-bottom: 2px solid #2563eb;
-    padding: 1rem 5%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    width: 100%; 
+    padding: 20px 4%; /* 4% padding keeps it wide but not touching the very edge */
     display: flex;
-    justify-content: space-between; /* Puts logo on left, nav on right */
+    justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 header strong {
@@ -27,122 +31,89 @@ header strong {
     color: #2563eb;
 }
 
+/* Horizontal Navigation */
 nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex; /* Makes the list horizontal */
-    gap: 30px;    /* Space between links */
+    display: flex; 
+    gap: 40px; /* Increased gap for a wider feel */
 }
 
 nav a {
     text-decoration: none;
     color: #333;
-    font-weight: bold;
-    transition: color 0.3s;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 nav a:hover {
     color: #2563eb;
 }
 
-/* Layout Container */
+/* Main Content Area - WIDENED */
 main {
-    max-width: 1100px; /* Limits width so it's readable on big screens */
-    margin: 20px auto;
+    max-width: 95%; /* This makes it fill almost the entire screen */
+    width: 1400px;  /* It will try to be 1400px wide on big screens */
+    margin: 40px auto; 
     padding: 0 20px;
 }
 
+/* Sections - Making them feel more spacious */
 section {
-    background-color: #f9fafb; /* Light gray for sections to pop */
-    padding: 30px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    border: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    padding: 50px; /* More internal breathing room */
+    border-radius: 12px;
+    margin-bottom: 40px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
-/* Typography */
+/* Headline Styling */
 h1 {
-    font-size: 36px;
+    font-size: 56px; /* Larger font for wide layouts */
+    margin-bottom: 25px;
     color: #111827;
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
-h2 {
+/* Stats List - Spread out horizontally */
+section ul {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 60px; /* Larger gap between stats */
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+section ul li strong {
     color: #2563eb;
-}
-
-/* Forms & Tables (Fixed to fit page) */
-form, table {
-    width: 100%;
-    margin-top: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    background: white;
-}
-
-th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-thead {
-    background-color: #2563eb;
-    color: white;
+    font-size: 32px;
+    display: block;
 }
 
 /* Buttons */
-button, [role="button"] {
-    display: inline-block;
-    background: #2563eb;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-button:hover {
-    background: #1d4ed8;
-}
-
-/* Footer */
-footer {
-    background: #111827;
-    color: #ffffff;
-    padding: 40px 5%;
-    margin-top: 50px;
-}
-
-footer a {
-    color: #9ca3af;
-    text-decoration: none;
-}
-
-footer a:hover {
-    color: #ffffff;
-}
-
-footer ul {
-    list-style: none;
-    padding: 0;
+.button-container {
     display: flex;
     gap: 20px;
+    margin: 30px 0;
 }
 
-/* Responsive Mobile View */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    nav ul {
-        margin-top: 15px;
-        gap: 15px;
-    }
+[role="button"], .btn {
+    background: #2563eb;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Footer - Full Width */
+footer {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    padding: 60px 5%;
+    margin-top: 80px;
 }
