@@ -1,169 +1,381 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Content Management Page</title>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    body {
-      background-color: white;
-      color: black;
-      padding-top: 70px; /* space for fixed navbar */
-    }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0b0f1a;
+  color: #e5e5e5;
+  line-height: 1.6;
+}
 
-    .navbar {
-      background-color: white !important;
-      border-bottom: 1px solid #ddd;
-    }
 
-    .navbar a {
-      color: black !important;
-    }
+a {
+  text-decoration: none;
+  color: #3b82f6;
+}
 
-    .card {
-      border: 1px solid #ddd;
-    }
+a:hover {
+  color: #60a5fa;
+}
 
-    .form-control {
-      border: 1px solid #ccc;
-    }
-  </style>
-</head>
+header {
+  background-color: #000;
+  border-bottom: 3px solid #2563eb;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-<body>
+header strong {
+  font-size: 26px;
+  color: #3b82f6;
+}
 
-<!-- 🔝 TOP NAVIGATION MENU -->
-<nav class="navbar navbar-expand-lg fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">Project Alpha</a>
+header p {
+  color: #9ca3af;
+}
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
 
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
-        <li class="nav-item"><a class="nav-link active" href="content.html">Content</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+nav a {
+  font-weight: bold;
+  color: #e5e5e5;
+}
 
-<!-- 📦 CONTENT AREA -->
-<div class="container">
+nav a:hover {
+  color: #3b82f6;
+}
 
-  <h2 class="mb-4">Content / Product Management</h2>
 
-  <!-- FORM -->
-  <div class="card p-3 mb-4">
-    <form id="contentForm">
+main {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
 
-      <div class="mb-3">
-        <label class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" required>
-      </div>
 
-      <div class="mb-3">
-        <label class="form-label">Category</label>
-        <input type="text" class="form-control" id="category" required>
-      </div>
+section {
+  background-color: #111827;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
 
-      <div class="mb-3">
-        <label class="form-label">Unit of Measure</label>
-        <input type="text" class="form-control" id="unit" required>
-      </div>
+section p {
+  margin-bottom: 1rem;
+}
 
-      <div class="mb-3">
-        <label class="form-label">Price / Fee</label>
-        <input type="text" class="form-control" id="price" required>
-      </div>
 
-      <div class="mb-3">
-        <label class="form-label">Additional Info</label>
-        <input type="text" class="form-control" id="info">
-      </div>
+h1 {
+  font-size: 42px;
+  color: #3b82f6;
+}
 
-      <button type="submit" class="btn btn-dark">Add Item</button>
-    </form>
-  </div>
+h2 {
+  color: #60a5fa;
+}
 
-  <!-- SEARCH -->
-  <input type="text" id="search" class="form-control mb-3" placeholder="Search by title or category">
+h3 {
+  color: #93c5fd;
+}
 
-  <!-- DISPLAY AREA -->
-  <div id="display" class="row"></div>
 
-</div>
+[role="button"], button {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-<!-- JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+[role="button"]:hover,
+button:hover {
+  background: #1d4ed8;
+}
 
-<script>
-  let items = [];
+section ul {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
 
-  // Submit form
-  $("#contentForm").on("submit", function(e) {
-    e.preventDefault();
+section ul li {
+  list-style: none;
+  text-align: center;
+}
 
-    let item = {
-      id: Date.now(),
-      title: $("#title").val(),
-      category: $("#category").val(),
-      unit: $("#unit").val(),
-      price: $("#price").val(),
-      info: $("#info").val()
-    };
+section ul strong {
+  font-size: 26px;
+  color: #3b82f6;
+}
 
-    items.push(item);
-    localStorage.setItem("items", JSON.stringify(items));
+article {
+  background: #020617;
+  border: 1px solid #1e293b;
+  padding: 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
 
-    renderItems();
-    this.reset();
-  });
+article header {
+  background: none;
+  padding: 0;
+}
 
-  // Render cards
-  function renderItems(filter = "") {
-    $("#display").empty();
+time {
+  color: #3b82f6;
+  font-weight: bold;
+}
 
-    let filtered = items.filter(i =>
-      i.title.toLowerCase().includes(filter.toLowerCase()) ||
-      i.category.toLowerCase().includes(filter.toLowerCase())
-    );
+aside {
+  background: #020617;
+  border: 1px solid #1e293b;
+  padding: 20px;
+  border-radius: 6px;
+}
 
-    filtered.forEach(i => {
-      $("#display").append(`
-        <div class="col-md-4 mb-3">
-          <div class="card p-3">
-            <h5>${i.title}</h5>
-            <p><b>Category:</b> ${i.category}</p>
-            <p><b>Unit:</b> ${i.unit}</p>
-            <p><b>Price:</b> ${i.price}</p>
-            <p>${i.info}</p>
-          </div>
-        </div>
-      `);
-    });
+section:last-of-type {
+  background: #000;
+  text-align: center;
+  border: 2px solid #2563eb;
+}
+
+section:last-of-type a {
+  background: #3b82f6;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 6px;
+}
+
+section:last-of-type a:hover {
+  background: #2563eb;
+}
+
+form {
+  background-color: #020617;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid #1e293b;
+  margin-bottom: 2rem;
+}
+
+fieldset {
+  border: 1px solid #1e293b;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e5e5e5;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #020617;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #2563eb;
+  color: white;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #1e293b;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #0f172a;
+}
+
+footer {
+  background: #000;
+  padding: 25px;
+  border-top: 3px solid #2563eb;
+  margin-top: 2rem;
+}
+
+footer ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+footer a {
+  color: #9ca3af;
+}
+
+footer a:hover {
+  color: #3b82f6;
+}
+
+footer address {
+  margin-top: 15px;
+}
+
+small {
+  color: #6b7280;
+  display: block;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  // Search filter
-  $("#search").on("keyup", function() {
-    renderItems($(this).val());
-  });
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
 
-  // Load saved data
-  $(document).ready(function() {
-    let saved = localStorage.getItem("items");
-    if (saved) items = JSON.parse(saved);
-    renderItems();
-  });
-</script>
+  section ul {
+    flex-direction: column;
+  }
+}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+form section {
+  margin-bottom: 2rem;
+}
 
-</body>
-</html>
+
+fieldset div {
+  margin-bottom: 15px;
+}
+
+
+abbr[title="required"] {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 5px #3b82f6;
+}
+
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+
+fieldset div label {
+  display: inline-block;
+  cursor: pointer;
+}
+
+
+fieldset div {
+  background: #0f172a;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #1e293b;
+  transition: 0.2s;
+}
+
+fieldset div:hover {
+  border-color: #3b82f6;
+  background: #111827;
+}
+
+#confirmation-summary th {
+  text-align: left;
+  width: 35%;
+  color: #93c5fd;
+}
+
+#confirmation-summary td {
+  color: #e5e5e5;
+}
+
+#finalize-btn {
+  background: #22c55e;
+}
+
+#finalize-btn:hover {
+  background: #16a34a;
+}
+
+#reset-btn {
+  background: #ef4444;
+  margin-left: 10px;
+}
+
+#reset-btn:hover {
+  background: #dc2626;
+}
+
+#finalize-feedback {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+}
+
+.success {
+  background: #064e3b;
+  color: #34d399;
+  border: 1px solid #10b981;
+}
+
+.error {
+  background: #450a0a;
+  color: #f87171;
+  border: 1px solid #ef4444;
+}
+
+
+@media (max-width: 768px) {
+  form {
+    padding: 0.5rem;
+  }
+
+  fieldset {
+    padding: 0.75rem;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+}
