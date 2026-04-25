@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Approval</title>
+
+  <link rel="stylesheet" href="styles.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .admin-banner {
+      background: linear-gradient(135deg, #0d1a33 0%, #1e3a6e 100%);
+      border: 1px solid #2563eb;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .admin-banner h1 { color: #3b82f6; margin-bottom: 4px; }
+    .admin-banner p  { color: #9ca3af; margin: 0; }
+
+    .stat-card {
+      background-color: #0f172a;
+      border: 1px solid #1e3a5f;
+      border-radius: 8px;
+      padding: 18px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ca8a04;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: #9ca3af;
+    }
+
+    .pending-card {
+      background-color: #0f172a;
+      border: 1px solid #1e3a5f;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .pending-card:hover {
+      border-color: #2563eb;
+    }
+    .pending-card .card-header-bar {
+      background-color: #1e3a6e;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pending-card .card-header-bar .reg-id {
+      font-family: monospace;
+      color: #60a5fa;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+    .pending-card .card-header-bar .submitted-at {
+      color: #9ca3af;
+      font-size: 0.8rem;
+    }
+    .pending-card .card-body-inner {
+      padding: 20px;
+    }
+
+    .session-pill {
+      display: inline-block;
+      background-color: #1e3a5f;
+      color: #93c5fd;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin: 2px 2px 2px 0;
+      white-space: nowrap;
+    }
+
+    .info-grid dt {
+      color: #93c5fd;
+      font-size: 0.78rem;
+      font-weight: bold;
+      margin-bottom: 1px;
+    }
+    .info-grid dd {
+      color: #d1d5db;
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+    }
+
+    .btn-approve {
+      background-color: #16a34a;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 0.88rem;
+      padding: 8px 22px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .btn-approve:hover { background-color: #15803d; color: #fff; }
+
+    .btn-decline {
+      background-color: #dc2626;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 0.88rem;
+      padding: 8px 22px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .btn-decline:hover { background-color: #b91c1c; color: #fff; }
+
+    .btn-hold {
+      background-color: #374151;
+      border: none;
+      color: #e5e5e5;
+      font-weight: bold;
+      font-size: 0.88rem;
+      padding: 8px 18px;
+      border-radius: 6px;
+    }
+    .btn-hold:hover { background-color: #4b5563; color: #fff; }
+
+    .badge-pending { background-color: #ca8a04; color: #fff; }
+
+    .admin-textarea {
+      background-color: #0b0f1a;
+      border: 1px solid #334155;
+      color: #e5e5e5;
+      border-radius: 5px;
+      width: 100%;
+      padding: 8px;
+      font-size: 0.85rem;
+      resize: vertical;
+    }
+    .admin-textarea:focus {
+      border-color: #3b82f6;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.25);
+    }
+
+    .modal-content {
+      background-color: #111827;
+      border: 1px solid #1e3a5f;
+      color: #e5e5e5;
+    }
+    .modal-header {
+      border-bottom: 1px solid #1e3a5f;
+    }
+    .modal-header .modal-title { color: #60a5fa; }
+    .modal-header .btn-close {
+      filter: invert(1) brightness(0.7);
+    }
+    .modal-footer {
+      border-top: 1px solid #1e3a5f;
+    }
+    .modal-body label {
+      color: #93c5fd;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .filter-bar {
+      background-color: #0f172a;
+      border: 1px solid #1e3a5f;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+    .filter-bar label {
+      color: #93c5fd;
+      font-size: 0.78rem;
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+    .filter-bar select,
+    .filter-bar input {
+      background-color: #0b0f1a;
+      border: 1px solid #334155;
+      color: #e5e5e5;
+      font-size: 0.82rem;
+    }
+    .filter-bar select:focus,
+    .filter-bar input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.25);
+      background-color: #0b0f1a;
+      color: #e5e5e5;
+    }
+
+    .bulk-bar {
+      background-color: #0d1a33;
+      border: 1px solid #2563eb;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .bulk-bar label {
+      color: #93c5fd;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin: 0;
+    }
+    .select-all-label {
+      color: #9ca3af;
+      font-size: 0.82rem;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    .section-label {
+      color: #60a5fa;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #1e3a5f;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      margin-top: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #4b5563;
+    }
+    .empty-state .empty-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!--HEADER -->
+<header class="container-fluid py-3">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div>
+      <a href="index.html"><strong>Conference 2026</strong></a>
+    </div>
+    <nav>
+      <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#schedule">Schedule</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="catalog.html">Catalog</a></li>
+          <li><a href="store.html">Store</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<!-- MAIN -->
+<main id="main-content" class="container my-4">
+
+  <!-- Admin banner -->
+  <div class="admin-banner">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+      <div>
+        <h1 class="mb-1" style="font-size:2rem;">Admin Approval Panel</h1>
+        <p>Review and action pending session registration submissions. Approved records are visible in Order History.</p>
+      </div>
+      <a href="order-history.html" class="btn btn-outline-info btn-sm fw-bold align-self-start">
+        View All Orders
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <span class="stat-number">0</span>
+        <span class="stat-label">Awaiting Review</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <span class="stat-number" style="color:#16a34a;">0</span>
+        <span class="stat-label">Approved Today</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <span class="stat-number" style="color:#dc2626;">0</span>
+        <span class="stat-label">Declined Today</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <span class="stat-number" style="color:#3b82f6;">0</span>
+        <span class="stat-label">Total This Week</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <form method="get" action="#pending-list">
+      <div class="row g-2 align-items-end">
+        <div class="col-12 col-md-4">
+          <label for="admin-search">Search by name, email, or ID</label>
+          <input
+            type="search"
+            id="admin-search"
+            name="q"
+            class="form-control form-control-sm"
+            placeholder="e.g. Jane, REG-005..."
+          />
+        </div>
+        <div class="col-6 col-md-3">
+          <label for="admin-filter-type">Participation Type</label>
+          <select id="admin-filter-type" name="type" class="form-select form-select-sm">
+            <option value="">All types</option>
+            <option value="in-person">In-Person</option>
+            <option value="virtual">Virtual</option>
+            <option value="vip">VIP</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-3">
+          <label for="admin-filter-date">Submitted on</label>
+          <input
+            type="date"
+            id="admin-filter-date"
+            name="date"
+            class="form-control form-control-sm"
+          />
+        </div>
+        <div class="col-12 col-md-2 d-flex gap-2">
+          <button type="submit" class="btn btn-primary btn-sm w-100">Filter</button>
+          <a href="approval.html" class="btn btn-sm w-100" style="background:#374151;color:#e5e5e5;">Clear</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Bulk action bar -->
+  <div class="bulk-bar">
+    <label>Bulk Actions:</label>
+    <input type="checkbox" id="select-all" class="form-check-input" style="accent-color:#3b82f6;" />
+    <label for="select-all" class="select-all-label">Select all visible</label>
+    <button type="button" class="btn-approve">Approve Selected</button>
+    <button type="button" class="btn-decline">Decline Selected</button>
+    <span class="text-secondary ms-auto" style="font-size:0.8rem;">0 items pending</span>
+  </div>
+
+  <!-- Pending submissions -->
+  <section id="pending-list">
+
+    <p class="section-label">Pending Registrations - 0 items</p>
+
+    <!--  Card 1 - REG-002  -->
+    <div class="pending-card">
+      <div class="card-header-bar">
+        <div class="d-flex align-items-center gap-3">
+          <input type="checkbox" class="form-check-input" style="accent-color:#3b82f6;" />
+          <span class="reg-id">REG-002</span>
+          <span class="badge badge-pending rounded-pill px-3 py-1">Pending</span>
+        </div>
+        <span class="submitted-at">Submitted: July 2, 2026 at 11:05 AM</span>
+      </div>
+
+      <div class="card-body-inner">
+        <div class="row g-4">
+
+          <!-- Attendee info -->
+          <div class="col-md-3">
+            <p class="section-label mb-2">Attendee</p>
+            <dl class="info-grid">
+              <dt>Full Name</dt>
+              <dd>John Doe</dd>
+              <dt>Email</dt>
+              <dd><a href="mailto:j.doe@test.example">j.doe@test.example</a></dd>
+              <dt>Institution</dt>
+              <dd>OpenAi</dd>
+              <dt>Attendee Type</dt>
+              <dd>Industry Professional</dd>
+            </dl>
+          </div>
+
+          <!-- Participation -->
+          <div class="col-md-3">
+            <p class="section-label mb-2">Participation</p>
+            <dl class="info-grid">
+              <dt>Type</dt>
+              <dd><span class="session-pill">Virtual</span></dd>
+              <dt>Time Zone</dt>
+              <dd>London - BST (UTC+1)</dd>
+              <dt>Streaming Platform</dt>
+              <dd>Conference Portal</dd>
+              <dt>Recordings Requested</dt>
+              <dd>Yes</dd>
+            </dl>
+          </div>
+
+          <!-- Sessions -->
+          <div class="col-md-3">
+            <p class="section-label mb-2">Sessions Selected</p>
+            <div class="mb-2">
+              <span class="session-pill">Responsible AI Keynote</span>
+              <span class="session-pill">Closing Keynote</span>
+            </div>
+            <dl class="info-grid">
+              <dt>Session Count</dt>
+              <dd>2 sessions</dd>
+              <dt>Additional Fees</dt>
+              <dd>None - all free sessions</dd>
+            </dl>
+          </div>
+
+          <!-- Actions -->
+          <div class="col-md-3 d-flex flex-column gap-2 justify-content-start">
+            <p class="section-label mb-2">Actions</p>
+
+            <!-- Approve form -->
+            <form method="post" action="#" data-ajax-endpoint="/api/v1/registrations/REG-002/approve" data-ajax-method="POST">
+              <input type="hidden" name="registration_id" value="REG-002" />
+              <input type="hidden" name="action" value="approve" />
+              <button type="submit" class="btn-approve w-100">
+                Approve
+              </button>
+            </form>
+
+            <!-- Decline - triggers modal -->
+            <button
+              type="button"
+              class="btn-decline w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#decline-modal-REG-002"
+            >
+              Decline
+            </button>
+
+            <!-- Hold -->
+            <button type="button" class="btn-hold w-100">
+              Hold for Review
+            </button>
+
+            <!-- Collapse detail -->
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary mt-1"
+              data-bs-toggle="collapse"
+              data-bs-target="#notes-REG-002"
+            >
+              Admin Notes
+            </button>
+            <div class="collapse" id="notes-REG-002">
+              <textarea class="admin-textarea mt-2" rows="3" placeholder="Internal notes (not visible to attendee)..."></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Decline modal for REG-002 -->
+    <div class="modal fade" id="decline-modal-REG-002" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Decline Registration - REG-002</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-secondary mb-3">
+              You are about to decline the registration for
+              <strong class="text-white">John Doe</strong>.
+              A notification will be sent to <strong class="text-white">j.doe@test.example</strong>.
+            </p>
+            <form method="post" action="#" id="decline-form-REG-002"
+                  data-ajax-endpoint="/api/v1/registrations/REG-002/decline"
+                  data-ajax-method="POST">
+              <input type="hidden" name="registration_id" value="REG-002" />
+              <input type="hidden" name="action" value="decline" />
+              <div class="mb-3">
+                <label for="decline-reason-REG-002">Reason for declining</label>
+                <select id="decline-reason-REG-002" name="reason" class="form-select mt-1"
+                        style="background:#0b0f1a;border-color:#334155;color:#e5e5e5;">
+                  <option value="">- Select a reason -</option>
+                  <option value="capacity">Session at capacity</option>
+                  <option value="duplicate">Duplicate submission</option>
+                  <option value="invalid-vip">Invalid VIP code</option>
+                  <option value="eligibility">Eligibility requirements not met</option>
+                  <option value="incomplete">Incomplete information</option>
+                  <option value="other">Other (specify below)</option>
+                </select>
+              </div>
+              <div>
+                <label for="decline-notes-REG-002">Additional notes (sent to attendee)</label>
+                <textarea
+                  id="decline-notes-REG-002"
+                  name="notes"
+                  class="admin-textarea mt-1"
+                  rows="3"
+                  placeholder="Optional message to include in the decline notification..."
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-hold" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" form="decline-form-REG-002" class="btn-decline">
+              Confirm Decline
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Card 2 - REG-005 -->
+    <div class="pending-card">
+      <div class="card-header-bar">
+        <div class="d-flex align-items-center gap-3">
+          <input type="checkbox" class="form-check-input" style="accent-color:#3b82f6;" />
+          <span class="reg-id">REG-005</span>
+          <span class="badge badge-pending rounded-pill px-3 py-1">Pending</span>
+        </div>
+        <span class="submitted-at">Submitted: July 4, 2026 at 10:22 AM</span>
+      </div>
+
+      <div class="card-body-inner">
+        <div class="row g-4">
+
+          <div class="col-md-3">
+            <p class="section-label mb-2">Attendee</p>
+            <dl class="info-grid">
+              <dt>Full Name</dt>
+              <dd>Jane Doe</dd>
+              <dt>Email</dt>
+              <dd><a href="mailto:j.doe@test.example">j.doe@test.example</a></dd>
+              <dt>Institution</dt>
+              <dd>OpenAi</dd>
+              <dt>Attendee Type</dt>
+              <dd>Researcher</dd>
+            </dl>
+          </div>
+
+          <div class="col-md-3">
+            <p class="section-label mb-2">Participation</p>
+            <dl class="info-grid">
+              <dt>Type</dt>
+              <dd><span class="session-pill">In-Person</span></dd>
+              <dt>Accessibility Needs</dt>
+              <dd>Captioning requested</dd>
+              <dt>Dietary</dt>
+              <dd>Halal</dd>
+            </dl>
+          </div>
+
+          <div class="col-md-3">
+            <p class="section-label mb-2">Sessions Selected</p>
+            <div class="mb-2">
+              <span class="session-pill">Epidemiology Workshop</span>
+              <span class="session-pill">Closing Keynote</span>
+            </div>
+            <dl class="info-grid">
+              <dt>Session Count</dt>
+              <dd>2 sessions</dd>
+              <dt>Additional Fees</dt>
+              <dd>$75.00 - Workshop fee</dd>
+            </dl>
+          </div>
+
+          <div class="col-md-3 d-flex flex-column gap-2 justify-content-start">
+            <p class="section-label mb-2">Actions</p>
+
+            <form method="post" action="#"
+                  data-ajax-endpoint="/api/v1/registrations/REG-005/approve"
+                  data-ajax-method="POST">
+              <input type="hidden" name="registration_id" value="REG-005" />
+              <input type="hidden" name="action" value="approve" />
+              <button type="submit" class="btn-approve w-100">Approve</button>
+            </form>
+
+            <button
+              type="button"
+              class="btn-decline w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#decline-modal-REG-005"
+            >
+              Decline
+            </button>
+
+            <button type="button" class="btn-hold w-100">Hold for Review</button>
+
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary mt-1"
+              data-bs-toggle="collapse"
+              data-bs-target="#notes-REG-005"
+            >
+              Admin Notes
+            </button>
+            <div class="collapse" id="notes-REG-005">
+              <textarea class="admin-textarea mt-2" rows="3" placeholder="Internal notes..."></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Decline modal for REG-005 -->
+    <div class="modal fade" id="decline-modal-REG-005" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Decline Registration - REG-005</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-secondary mb-3">
+              You are about to decline the registration for
+              <strong class="text-white">Jane Doe</strong>.
+              A notification will be sent to <strong class="text-white">j.doe@test.example</strong>.
+            </p>
+            <form method="post" action="#" id="decline-form-REG-005"
+                  data-ajax-endpoint="/api/v1/registrations/REG-005/decline"
+                  data-ajax-method="POST">
+              <input type="hidden" name="registration_id" value="REG-005" />
+              <input type="hidden" name="action" value="decline" />
+              <div class="mb-3">
+                <label for="decline-reason-REG-005">Reason for declining</label>
+                <select id="decline-reason-REG-005" name="reason" class="form-select mt-1"
+                        style="background:#0b0f1a;border-color:#334155;color:#e5e5e5;">
+                  <option value="">- Select a reason -</option>
+                  <option value="capacity">Session at capacity</option>
+                  <option value="duplicate">Duplicate submission</option>
+                  <option value="invalid-vip">Invalid VIP code</option>
+                  <option value="eligibility">Eligibility requirements not met</option>
+                  <option value="incomplete">Incomplete information</option>
+                  <option value="other">Other (specify below)</option>
+                </select>
+              </div>
+              <div>
+                <label for="decline-notes-REG-005">Additional notes</label>
+                <textarea
+                  id="decline-notes-REG-005"
+                  name="notes"
+                  class="admin-textarea mt-1"
+                  rows="3"
+                  placeholder="Optional message..."
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-hold" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" form="decline-form-REG-005" class="btn-decline">
+              Confirm Decline
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Card 3 - REG-007 -->
+    <div class="pending-card">
+      <div class="card-header-bar">
+        <div class="d-flex align-items-center gap-3">
+          <input type="checkbox" class="form-check-input" style="accent-color:#3b82f6;" />
+          <span class="reg-id">REG-007</span>
+          <span class="badge badge-pending rounded-pill px-3 py-1">Pending</span>
+        </div>
+        <span class="submitted-at">Submitted: July 5, 2026 at 09:41 AM</span>
+      </div>
+
+      <div class="card-body-inner">
+        <div class="row g-4">
+
+          <div class="col-md-3">
+            <p class="section-label mb-2">Attendee</p>
+            <dl class="info-grid">
+              <dt>Full Name</dt>
+              <dd>Sofia Reyes</dd>
+              <dt>Email</dt>
+              <dd><a href="mailto:s.reyes@test.example">s.reyes@test.example</a></dd>
+              <dt>Institution</dt>
+              <dd>University</dd>
+              <dt>Attendee Type</dt>
+              <dd>Graduate Student (PhD)</dd>
+            </dl>
+          </div>
+
+          <div class="col-md-3">
+            <p class="section-label mb-2">Participation</p>
+            <dl class="info-grid">
+              <dt>Type</dt>
+              <dd><span class="session-pill">In-Person</span></dd>
+              <dt>Dietary</dt>
+              <dd>Gluten-Free</dd>
+              <dt>Accessibility Needs</dt>
+              <dd>None</dd>
+            </dl>
+          </div>
+
+          <div class="col-md-3">
+            <p class="section-label mb-2">Sessions Selected</p>
+            <div class="mb-2">
+              <span class="session-pill">Paper Session A</span>
+              <span class="session-pill">Poster Session</span>
+              <span class="session-pill">Conference Dinner</span>
+            </div>
+            <dl class="info-grid">
+              <dt>Session Count</dt><dd>3 sessions</dd>
+              <dt>Additional Fees</dt><dd>None - included</dd>
+            </dl>
+          </div>
+
+          <div class="col-md-3 d-flex flex-column gap-2 justify-content-start">
+            <p class="section-label mb-2">Actions</p>
+
+            <form method="post" action="#"
+                  data-ajax-endpoint="/api/v1/registrations/REG-007/approve"
+                  data-ajax-method="POST">
+              <input type="hidden" name="registration_id" value="REG-007" />
+              <input type="hidden" name="action" value="approve" />
+              <button type="submit" class="btn-approve w-100">Approve</button>
+            </form>
+
+            <button
+              type="button"
+              class="btn-decline w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#decline-modal-REG-007"
+            >
+              Decline
+            </button>
+
+            <button type="button" class="btn-hold w-100">Hold for Review</button>
+
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary mt-1"
+              data-bs-toggle="collapse"
+              data-bs-target="#notes-REG-007"
+            >
+              Admin Notes
+            </button>
+            <div class="collapse" id="notes-REG-007">
+              <textarea class="admin-textarea mt-2" rows="3" placeholder="Internal notes..."></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Decline modal for REG-007 -->
+    <div class="modal fade" id="decline-modal-REG-007" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Decline Registration - REG-007</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-secondary mb-3">
+              You are about to decline the registration for
+              <strong class="text-white">Sofia Reyes</strong>.
+            </p>
+            <form method="post" action="#" id="decline-form-REG-007"
+                  data-ajax-endpoint="/api/v1/registrations/REG-007/decline"
+                  data-ajax-method="POST">
+              <input type="hidden" name="registration_id" value="REG-007" />
+              <input type="hidden" name="action" value="decline" />
+              <div class="mb-3">
+                <label for="decline-reason-REG-007">Reason for declining</label>
+                <select id="decline-reason-REG-007" name="reason" class="form-select mt-1"
+                        style="background:#0b0f1a;border-color:#334155;color:#e5e5e5;">
+                  <option value="">- Select a reason -</option>
+                  <option value="capacity">Session at capacity</option>
+                  <option value="duplicate">Duplicate submission</option>
+                  <option value="invalid-vip">Invalid VIP code</option>
+                  <option value="eligibility">Eligibility requirements not met</option>
+                  <option value="incomplete">Incomplete information</option>
+                  <option value="other">Other (specify below)</option>
+                </select>
+              </div>
+              <div>
+                <label for="decline-notes-REG-007">Additional notes</label>
+                <textarea id="decline-notes-REG-007" name="notes" class="admin-textarea mt-1" rows="3"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-hold" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" form="decline-form-REG-007" class="btn-decline">Confirm Decline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Cards 4-6 collapsed for brevity - same pattern as above -->
+
+    <div class="pending-card">
+      <div class="card-header-bar">
+        <div class="d-flex align-items-center gap-3">
+          <input type="checkbox" class="form-check-input" style="accent-color:#3b82f6;" />
+          <span class="reg-id">REG-008</span>
+          <span class="badge badge-pending rounded-pill px-3 py-1">Pending</span>
+        </div>
+        <span class="submitted-at">Submitted: July 5, 2026 at 01:50 PM</span>
+      </div>
+      <div class="card-body-inner">
+        <div class="row g-4">
+          <div class="col-md-3">
+            <p class="section-label mb-2">Attendee</p>
+            <dl class="info-grid">
+              <dt>Full Name</dt><dd>Ryo Matsuda</dd>
+              <dt>Email</dt><dd><a href="mailto:r.matsuda@test.example">r.matsuda@test.example</a></dd>
+              <dt>Institution</dt><dd>Kyoto University</dd>
+              <dt>Attendee Type</dt><dd>Graduate Student (PhD)</dd>
+            </dl>
+          </div>
+          <div class="col-md-3">
+            <p class="section-label mb-2">Participation</p>
+            <dl class="info-grid">
+              <dt>Type</dt><dd><span class="session-pill">Virtual</span></dd>
+              <dt>Time Zone</dt><dd>Japan - JST (UTC+9)</dd>
+            </dl>
+          </div>
+          <div class="col-md-3">
+            <p class="section-label mb-2">Sessions Selected</p>
+            <div class="mb-2">
+              <span class="session-pill">Paper Session A</span>
+              <span class="session-pill">AI Keynote</span>
+            </div>
+            <dl class="info-grid">
+              <dt>Additional Fees</dt><dd>None</dd>
+            </dl>
+          </div>
+          <div class="col-md-3 d-flex flex-column gap-2">
+            <p class="section-label mb-2">Actions</p>
+            <form method="post" action="#"
+                  data-ajax-endpoint="/api/v1/registrations/REG-008/approve"
+                  data-ajax-method="POST">
+              <input type="hidden" name="registration_id" value="REG-008" />
+              <input type="hidden" name="action" value="approve" />
+              <button type="submit" class="btn-approve w-100">Approve</button>
+            </form>
+            <button type="button" class="btn-decline w-100"
+                    data-bs-toggle="modal" data-bs-target="#decline-modal-REG-008">
+              Decline
+            </button>
+            <button type="button" class="btn-hold w-100">Hold for Review</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decline modal REG-008 -->
+    <div class="modal fade" id="decline-modal-REG-008" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Decline Registration - REG-008</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-secondary mb-3">You are about to decline the registration for <strong class="text-white">Ryo Matsuda</strong>.</p>
+            <form id="decline-form-REG-008" method="post" action="#"
+                  data-ajax-endpoint="/api/v1/registrations/REG-008/decline" data-ajax-method="POST">
+              <input type="hidden" name="registration_id" value="REG-008" />
+              <input type="hidden" name="action" value="decline" />
+              <div class="mb-3">
+                <label for="decline-reason-REG-008">Reason</label>
+                <select id="decline-reason-REG-008" name="reason" class="form-select mt-1"
+                        style="background:#0b0f1a;border-color:#334155;color:#e5e5e5;">
+                  <option value="">- Select -</option>
+                  <option value="capacity">Session at capacity</option>
+                  <option value="duplicate">Duplicate submission</option>
+                  <option value="eligibility">Eligibility requirements not met</option>
+                  <option value="incomplete">Incomplete information</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="decline-notes-REG-008">Notes</label>
+                <textarea id="decline-notes-REG-008" name="notes" class="admin-textarea mt-1" rows="3"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-hold" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" form="decline-form-REG-008" class="btn-decline">Confirm Decline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+      <p class="mb-0 small text-secondary">Showing 1 of 6 pending registrations</p>
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+            <a class="page-link" href="#"
+               style="background:#0f172a;border-color:#1e3a5f;color:#4b5563;">Previous</a>
+          </li>
+          <li class="page-item active">
+            <a class="page-link" href="#"
+               style="background:#2563eb;border-color:#2563eb;color:#fff;">1</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#"
+               style="background:#0f172a;border-color:#1e3a5f;color:#3b82f6;">2</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#"
+               style="background:#0f172a;border-color:#1e3a5f;color:#3b82f6;">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="container-fluid py-3">
+  <div class="container">
+    <ul class="mb-3">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+        <li><a href="store.html">Store</a></li>
+    </ul>
+    <address>
+      Conference 2026;
+      123 Convention Way, San Francisco, CA 94102;
+      <a href="mailto:info@conference.com">info@conference.com</a>
+    </address>
+    <small>&copy; 2026 Conference 2026. All rights reserved.</small>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
