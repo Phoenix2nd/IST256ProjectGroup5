@@ -183,3 +183,130 @@ a[href="#main-content"] {
 a[href="#main-content"]:focus {
   top: 10px;
 }
+
+<section class="registration-header">
+  <h1>Attendee Registration</h1>
+  <p class="subtitle">Secure your place at Conference 2026</p>
+
+  <div class="event-details">
+    <p><strong>📅 Dates:</strong> July 14 – 17, 2026</p>
+    <p><strong>📍 Location:</strong> San Francisco Convention Center, CA</p>
+    <p><strong>⏳ Early-Bird Deadline:</strong> April 30, 2026</p>
+    <p><strong>📧 Questions:</strong> register@conference.com</p>
+  </div>
+</section>
+
+<hr>
+
+<section class="progress">
+  <p><strong>Step 1 of 5:</strong> Personal Information</p>
+</section>
+
+<section class="form-section">
+  <h2>Personal Information</h2>
+
+  <label>Full Name *</label>
+  <input type="text" placeholder="Jane Doe">
+  <small>Enter your name exactly as you'd like it on your badge.</small>
+
+  <label>Email Address *</label>
+  <input type="email" placeholder="jane.doe@university.edu">
+  <small>Conference updates will be sent here.</small>
+
+  <label>Phone Number (Optional)</label>
+  <input type="tel" placeholder="+1 (555) 000-0000">
+
+  <label>Age *</label>
+  <input type="number" placeholder="24">
+</section>
+
+<section class="form-section">
+  <h2>Academic & Professional</h2>
+
+  <label>Institution or Organization *</label>
+  <input type="text" placeholder="MIT, Acme Corp, Independent">
+
+  <label>Attendee Type *</label>
+  <select>
+    <option>- Select one -</option>
+  </select>
+
+  <label>Year / Grade Level *</label>
+  <input type="text" placeholder="Junior, 2nd Year PhD, Senior Engineer">
+</section>
+
+<section class="form-section">
+  <h2>Address Information</h2>
+
+  <label>Street Address *</label>
+  <input type="text">
+
+  <label>City *</label>
+  <input type="text">
+
+  <label>State / Province *</label>
+  <input type="text">
+
+  <label>ZIP / Postal Code *</label>
+  <input type="text">
+
+  <label>Country *</label>
+  <select>
+    <option>- Select a country -</option>
+  </select>
+</section>
+
+<section class="form-section">
+  <h2>Preferences & Consent</h2>
+
+  <label>Dietary Requirements</label>
+  <select>
+    <option>No restrictions</option>
+  </select>
+
+  <label>Additional Notes</label>
+  <textarea placeholder="Allergies or dietary needs..."></textarea>
+
+  <label>Accessibility Needs</label>
+  <textarea placeholder="How can we support you?"></textarea>
+
+  <label>Short Bio (Optional)</label>
+  <textarea maxlength="600"></textarea>
+
+  <div class="checkboxes">
+    <label><input type="checkbox"> I agree to Terms & Conditions *</label>
+    <label><input type="checkbox"> I consent to photography</label>
+    <label><input type="checkbox"> Send me future updates</label>
+    <label><input type="checkbox"> Show my profile publicly</label>
+  </div>
+</section>
+
+<section class="form-section">
+  <h2>Review & Submit</h2>
+  <p>Please review your information before submitting.</p>
+
+  <div class="summary-box">
+    <p><strong>Full Name:</strong> Not yet entered</p>
+    <p><strong>Email:</strong> Not yet entered</p>
+    <p><strong>Institution:</strong> Not yet entered</p>
+  </div>
+
+  <div class="actions">
+    <a role="button">Submit Registration</a>
+    <a role="button">Clear Form</a>
+    <a role="button">Cancel</a>
+  </div>
+</section>
+
+<section class="faq">
+  <h2>Registration FAQs</h2>
+
+  <h3>How will I receive my confirmation?</h3>
+  <p>You’ll receive a confirmation email within 24 hours.</p>
+
+  <h3>Can I update my details?</h3>
+  <p>Yes — updates are allowed until July 10, 2026.</p>
+
+  <h3>Cancellation policy?</h3>
+  <p>Full refunds until June 1, 2026. After that, transfers only.</p>
+</section>
