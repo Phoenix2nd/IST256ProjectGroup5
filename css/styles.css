@@ -1,153 +1,250 @@
-:root {
-  --primary: #0f172a;    /* Navy */
-  --accent: #2563eb;     /* Professional Blue */
-  --accent-soft: #dbeafe;
-  --bg: #f8fafc;
-  --white: #ffffff;
-  --slate-600: #475569;
-  --slate-200: #e2e8f0;
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
+/* GLOBAL */
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background-color: var(--bg);
-  color: var(--primary);
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: #0b3d91;
   line-height: 1.6;
 }
 
-h1, h2, h3 { 
-  font-weight: 700; 
-  letter-spacing: -0.025em; 
-  line-height: 1.2;
+a {
+  text-decoration: none;
+  color: #0b3d91;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
+/* HEADER + NAV */
 header {
-  background: var(--white);
-  padding: 1.5rem 10%;
+  background-color: #0b3d91;
+  color: white;
+  padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--slate-200);
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 
-header nav ul {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
+header a {
+  color: white;
 }
 
-header nav a {
-  text-decoration: none;
-  color: var(--slate-600);
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-header nav a:hover { color: var(--accent); }
-
-/* Hero Section */
-.hero {
-  padding: 100px 10%;
-  background: radial-gradient(circle at top right, var(--accent-soft), transparent);
-  text-align: center;
-}
-
-.hero h1 { font-size: 3.5rem; margin-bottom: 1.5rem; }
-
-.hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
-  margin-top: 3rem;
-  list-style: none;
-}
-
-.dates-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 4rem 10%;
-}
-
-.date-card {
-  background: var(--white);
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid var(--slate-200);
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-}
-
-.date-card time {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-#schedule { padding: 4rem 10%; }
-
-.schedule-day-nav {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  justify-content: center;
-}
-
-.schedule-day-nav a {
-  padding: 0.5rem 1.5rem;
-  border-radius: 20px;
-  background: var(--slate-200);
-  text-decoration: none;
-  color: var(--primary);
+header p {
   font-size: 0.9rem;
 }
 
-.session-card {
-  background: var(--white);
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 2rem;
-  border: 1px solid var(--slate-200);
+/* NAV MENU */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
 }
 
-.session-time {
-  font-weight: 600;
-  color: var(--slate-600);
+nav ul li a {
+  font-weight: bold;
 }
 
-.btn-primary {
-  background: var(--accent);
-  color: white;
-  padding: 0.8rem 2rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
+/* MAIN LAYOUT */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* HERO SECTION */
+section:first-of-type {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 20px 0;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin: 20px 0 10px;
+}
+
+/* BUTTONS */
+a[role="button"] {
   display: inline-block;
-  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #0b3d91;
+  color: white;
+  padding: 12px 20px;
+  margin: 10px;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+a[role="button"]:hover {
+  background-color: #062c6b;
 }
 
-@media (max-width: 768px) {
-  .session-card {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-  
-  .hero h1 { font-size: 2.5rem; }
+/* STATS */
+section ul {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+  list-style: none;
+}
+
+section ul li {
+  text-align: center;
+}
+
+/* IMPORTANT DATES */
+ol {
+  margin-left: 20px;
+}
+
+ol li {
+  margin-bottom: 15px;
+}
+
+/* ========================= */
+/* SCHEDULE (UPGRADED) */
+/* ========================= */
+
+/* Tabs */
+#schedule nav ul {
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+#schedule nav ul li a {
+  padding: 10px 18px;
+  border-radius: 20px;
+  background-color: #e6ecfa;
+  color: #0b3d91;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+#schedule nav ul li a:hover {
+  background-color: #0b3d91;
+  color: white;
+}
+
+/* Section container */
+#schedule section {
+  background-color: #f4f7ff;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+/* Day header */
+#schedule h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  border-left: 5px solid #0b3d91;
+  padding-left: 10px;
+}
+
+/* Event cards */
+article {
+  border: none;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Remove header styling inside cards */
+article header {
+  background: none;
+  color: #0b3d91;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+/* Time + location row */
+article > p:first-child {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Titles */
+article h3 {
+  font-size: 1.2rem;
+  color: #0b3d91;
+  margin-bottom: 8px;
+}
+
+/* Description text */
+article p {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* ASIDE */
+aside {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* CTA SECTION */
+section:last-of-type {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* FOOTER */
+footer {
+  background-color: #0b3d91;
+  color: white;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+footer a {
+  color: white;
+}
+
+footer nav ul {
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+address {
+  margin-bottom: 15px;
+}
+
+/* SKIP LINK */
+a[href="#main-content"] {
+  position: absolute;
+  top: -40px;
+  left: 10px;
+  background: black;
+  color: white;
+  padding: 8px;
+}
+
+a[href="#main-content"]:focus {
+  top: 10px;
 }
