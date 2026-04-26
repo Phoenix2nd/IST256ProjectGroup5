@@ -59,24 +59,98 @@ main {
 }
 
 /* HERO SECTION */
+/* HERO SECTION - LIGHT GREY STYLE */
 section:first-of-type {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 0; /* Removed margin to prevent a gap before the white section */
+  padding: 120px 20px;
+
+  /* Soft light grey gradient */
+  background: linear-gradient(
+    135deg,
+    #f5f5f7,
+    #eef0f3,
+    #f5f5f7
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+
+  color: #1a1a1a;
+  position: relative;
+  overflow: hidden;
 }
 
-h1 {
-  font-size: 3rem;
-  margin: 20px 0;
+/* BIG IMPACT TEXT */
+section:first-of-type h1 {
+  font-size: 5.5rem; /* Massive size */
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -3px;
+  color: #0b3d91;
+  margin-bottom: 25px;
 }
 
-h2 {
-  margin-bottom: 20px;
+/* SUBTEXT */
+section:first-of-type p {
+  color: #444;
+  font-size: 1.25rem;
+  max-width: 900px;
+  margin: 0 auto 30px auto;
 }
 
-h3 {
-  margin: 20px 0 10px;
+/* FLOATING BLOBS (Stay contained in the grey hero) */
+section:first-of-type::before,
+section:first-of-type::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.1;
+  z-index: 1;
 }
 
+section:first-of-type::before {
+  width: 500px;
+  height: 500px;
+  background: #2a7fff;
+  top: -150px;
+  left: -100px;
+  animation: float1 12s ease-in-out infinite;
+}
+
+section:first-of-type::after {
+  width: 450px;
+  height: 450px;
+  background: #6a5cff;
+  bottom: -150px;
+  right: -50px;
+  animation: float2 15s ease-in-out infinite;
+}
+
+/* EVERYTHING BELOW THE HERO (Important Dates, etc.) */
+/* This ensures the rest of the page remains pure white */
+section:not(:first-of-type), 
+main, 
+body {
+  background-color: #ffffff;
+}
+
+/* Keyframes for the Hero Animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(30px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
 /* BUTTONS */
 a[role="button"] {
   display: inline-block;
