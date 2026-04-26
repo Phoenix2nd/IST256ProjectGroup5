@@ -59,51 +59,22 @@ main {
 }
 
 /* HERO SECTION */
-/* HERO SECTION (UPGRADED) */
 section:first-of-type {
   text-align: center;
   margin-bottom: 50px;
-  padding: 80px 20px;
-
-  /* layered background */
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(11,61,145,0.08), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(11,61,145,0.06), transparent 40%),
-    linear-gradient(to bottom, #f5f8ff, #ffffff);
-
-  position: relative;
-  overflow: hidden;
 }
 
-/* subtle pattern (top-left) */
-section:first-of-type::before {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  top: -150px;
-  left: -150px;
-  background: radial-gradient(circle, rgba(11,61,145,0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.4;
+h1 {
+  font-size: 3rem;
+  margin: 20px 0;
 }
 
-/* soft glow (bottom-right) */
-section:first-of-type::after {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  bottom: -150px;
-  right: -150px;
-  background: radial-gradient(circle, rgba(11,61,145,0.12), transparent 70%);
-  filter: blur(40px);
+h2 {
+  margin-bottom: 20px;
 }
 
-/* keep content above background */
-section:first-of-type * {
-  position: relative;
-  z-index: 2;
+h3 {
+  margin: 20px 0 10px;
 }
 
 /* BUTTONS */
