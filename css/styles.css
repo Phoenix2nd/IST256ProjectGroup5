@@ -1,25 +1,18 @@
-/* RESET & BASE */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Prevents horizontal scroll from full-width elements */
-  background-color: #ffffff;
-}
-
+/* GLOBAL */
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
   color: #0b3d91;
   line-height: 1.6;
 }
 
-/* LINKS */
 a {
   text-decoration: none;
   color: #0b3d91;
@@ -37,7 +30,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
 header a {
@@ -48,6 +40,7 @@ header p {
   font-size: 0.9rem;
 }
 
+/* NAV MENU */
 nav ul {
   list-style: none;
   display: flex;
@@ -65,76 +58,23 @@ main {
   padding: 40px 20px;
 }
 
-/* ========================================= */
-/* HERO SECTION (EDGE-TO-EDGE)               */
-/* ========================================= */
+/* HERO SECTION */
 section:first-of-type {
-  /* The "Breakout" Hack: forces section to touch browser edges 
-     even if nested inside a max-width container */
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  
   text-align: center;
-  padding: 120px 20px;
-  margin-top: 0;
-  margin-bottom: 0;
-
-  /* Animated Gradient Background */
-  background: linear-gradient(135deg, #f5f5f7, #eef0f3, #f5f5f7);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-  
-  color: #1a1a1a;
-  overflow: hidden;
+  margin-bottom: 50px;
 }
 
-section:first-of-type h1 {
-  font-size: 5.5rem;
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -3px;
-  color: #0b3d91;
-  margin-bottom: 25px;
+h1 {
+  font-size: 3rem;
+  margin: 20px 0;
 }
 
-section:first-of-type p {
-  color: #444;
-  font-size: 1.25rem;
-  max-width: 900px;
-  margin: 0 auto 30px auto;
+h2 {
+  margin-bottom: 20px;
 }
 
-/* FLOATING BLOBS */
-section:first-of-type::before,
-section:first-of-type::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.1;
-  z-index: 1;
-}
-
-section:first-of-type::before {
-  width: 500px;
-  height: 500px;
-  background: #2a7fff;
-  top: -150px;
-  left: -100px;
-  animation: float1 12s ease-in-out infinite;
-}
-
-section:first-of-type::after {
-  width: 450px;
-  height: 450px;
-  background: #6a5cff;
-  bottom: -150px;
-  right: -50px;
-  animation: float2 15s ease-in-out infinite;
+h3 {
+  margin: 20px 0 10px;
 }
 
 /* BUTTONS */
@@ -174,7 +114,11 @@ ol li {
   margin-bottom: 15px;
 }
 
-/* SCHEDULE SECTION */
+/* ========================= */
+/* SCHEDULE (UPGRADED) */
+/* ========================= */
+
+/* Tabs */
 #schedule nav ul {
   justify-content: center;
   margin-bottom: 30px;
@@ -184,4 +128,123 @@ ol li {
 #schedule nav ul li a {
   padding: 10px 18px;
   border-radius: 20px;
-  background-color: #e6
+  background-color: #e6ecfa;
+  color: #0b3d91;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+#schedule nav ul li a:hover {
+  background-color: #0b3d91;
+  color: white;
+}
+
+/* Section container */
+#schedule section {
+  background-color: #f4f7ff;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+/* Day header */
+#schedule h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  border-left: 5px solid #0b3d91;
+  padding-left: 10px;
+}
+
+/* Event cards */
+article {
+  border: none;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Remove header styling inside cards */
+article header {
+  background: none;
+  color: #0b3d91;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+/* Time + location row */
+article > p:first-child {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Titles */
+article h3 {
+  font-size: 1.2rem;
+  color: #0b3d91;
+  margin-bottom: 8px;
+}
+
+/* Description text */
+article p {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* ASIDE */
+aside {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* CTA SECTION */
+section:last-of-type {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* FOOTER */
+footer {
+  background-color: #0b3d91;
+  color: white;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+footer a {
+  color: white;
+}
+
+footer nav ul {
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+address {
+  margin-bottom: 15px;
+}
+
+/* SKIP LINK */
+a[href="#main-content"] {
+  position: absolute;
+  top: -40px;
+  left: 10px;
+  background: black;
+  color: white;
+  padding: 8px;
+}
+
+a[href="#main-content"]:focus {
+  top: 10px;
+}
