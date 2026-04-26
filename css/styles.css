@@ -1,286 +1,153 @@
-/* =========================
-   VARIABLES
-========================= */
 :root {
-  --primary: #0b3d91;
-  --primary-dark: #062c6b;
-  --light-bg: #f4f7ff;
-  --soft-bg: #e6ecfa;
-  --text-dark: #333;
-  --text-body: #444;
+  --primary: #0f172a;    /* Navy */
+  --accent: #2563eb;     /* Professional Blue */
+  --accent-soft: #dbeafe;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --slate-600: #475569;
+  --slate-200: #e2e8f0;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
-/* =========================
-   RESET
-========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* =========================
-   GLOBAL
-========================= */
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg);
   color: var(--primary);
   line-height: 1.6;
 }
 
-a {
-  text-decoration: none;
-  color: var(--primary);
-  transition: 0.2s ease;
+h1, h2, h3 { 
+  font-weight: 700; 
+  letter-spacing: -0.025em; 
+  line-height: 1.2;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
-/* =========================
-   HEADER
-========================= */
 header {
-  background: var(--primary);
-  color: #fff;
-  padding: 15px 40px;
+  background: var(--white);
+  padding: 1.5rem 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--slate-200);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-header a {
-  color: #fff;
+header nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
 }
 
-header p {
+header nav a {
+  text-decoration: none;
+  color: var(--slate-600);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+header nav a:hover { color: var(--accent); }
+
+/* Hero Section */
+.hero {
+  padding: 100px 10%;
+  background: radial-gradient(circle at top right, var(--accent-soft), transparent);
+  text-align: center;
+}
+
+.hero h1 { font-size: 3.5rem; margin-bottom: 1.5rem; }
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 3rem;
+  list-style: none;
+}
+
+.dates-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 4rem 10%;
+}
+
+.date-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--slate-200);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.date-card time {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+#schedule { padding: 4rem 10%; }
+
+.schedule-day-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+}
+
+.schedule-day-nav a {
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  background: var(--slate-200);
+  text-decoration: none;
+  color: var(--primary);
   font-size: 0.9rem;
 }
 
-/* =========================
-   NAV
-========================= */
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-nav a {
-  font-weight: bold;
-}
-
-/* =========================
-   MAIN
-========================= */
-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-/* =========================
-   TYPOGRAPHY
-========================= */
-h1 {
-  font-size: 3rem;
-  margin: 20px 0;
-}
-
-h2 {
-  margin-bottom: 20px;
-}
-
-h3 {
-  margin: 20px 0 10px;
-}
-
-/* =========================
-   HERO
-========================= */
-section:first-of-type {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-a[role="button"] {
-  display: inline-block;
-  background: var(--primary);
-  color: #fff;
-  padding: 12px 20px;
-  margin: 10px;
-  border-radius: 6px;
-  font-weight: bold;
-}
-
-a[role="button"]:hover {
-  background: var(--primary-dark);
-}
-
-/* =========================
-   STATS
-========================= */
-section ul {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 30px;
-  list-style: none;
-}
-
-section ul li {
-  text-align: center;
-}
-
-/* =========================
-   LISTS
-========================= */
-ol {
-  margin-left: 20px;
-}
-
-ol li {
-  margin-bottom: 15px;
-}
-
-/* =========================
-   SCHEDULE
-========================= */
-
-/* Tabs */
-#schedule nav ul {
-  justify-content: center;
-  margin-bottom: 30px;
-  gap: 10px;
-}
-
-#schedule nav a {
-  padding: 10px 18px;
-  border-radius: 20px;
-  background: var(--soft-bg);
-}
-
-#schedule nav a:hover {
-  background: var(--primary);
-  color: #fff;
-}
-
-/* Container */
-#schedule section {
-  background: var(--light-bg);
-  padding: 30px;
+.session-card {
+  background: var(--white);
   border-radius: 12px;
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  border: 1px solid var(--slate-200);
 }
 
-/* Day Title */
-#schedule h2 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  border-left: 5px solid var(--primary);
-  padding-left: 10px;
+.session-time {
+  font-weight: 600;
+  color: var(--slate-600);
 }
 
-/* Event Cards */
-article {
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: 0.15s ease;
-}
-
-article:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-
-/* Remove header styling inside cards */
-article header {
-  background: none;
-  color: var(--primary);
-  padding: 0;
-  margin-bottom: 10px;
-}
-
-/* Time row */
-article > p:first-child {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: var(--text-dark);
-}
-
-/* Text */
-article h3 {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-}
-
-article p {
-  color: var(--text-body);
-  font-size: 0.95rem;
-}
-
-/* =========================
-   ASIDE
-========================= */
-aside {
-  margin-top: 30px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-/* =========================
-   CTA
-========================= */
-section:last-of-type {
-  text-align: center;
-  margin-top: 50px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-footer {
-  background: var(--primary);
-  color: #fff;
-  padding: 30px;
-  margin-top: 50px;
-}
-
-footer a {
-  color: #fff;
-}
-
-footer nav ul {
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-address {
-  margin-bottom: 15px;
-}
-
-/* =========================
-   ACCESSIBILITY
-========================= */
-a[href="#main-content"] {
-  position: absolute;
-  top: -40px;
-  left: 10px;
-  background: black;
+.btn-primary {
+  background: var(--accent);
   color: white;
-  padding: 8px;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-a[href="#main-content"]:focus {
-  top: 10px;
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+@media (max-width: 768px) {
+  .session-card {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .hero h1 { font-size: 2.5rem; }
 }
