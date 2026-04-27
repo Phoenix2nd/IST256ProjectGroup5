@@ -366,6 +366,28 @@
 
         </fieldset>
 
+        <script>
+  // This code lives inside the HTML to bypass the JS file issues
+  const regForm = document.getElementById('registration-form');
+  
+  regForm.addEventListener('input', function() {
+      // Personal Info
+      document.getElementById('summary-name').textContent = document.getElementById('full-name').value || "Not yet entered";
+      document.getElementById('summary-email').textContent = document.getElementById('email').value || "Not yet entered";
+      document.getElementById('summary-age').textContent = document.getElementById('age').value || "Not yet entered";
+      
+      // Academic Info
+      document.getElementById('summary-institution').textContent = document.getElementById('institution').value || "Not yet entered";
+      
+      // Type Dropdown
+      const typeSel = document.getElementById('attendee-type');
+      document.getElementById('summary-type').textContent = typeSel.options[typeSel.selectedIndex].text;
+      
+      // Directory
+      const isVisible = document.getElementById('directory-visible').checked;
+      document.getElementById('summary-directory').textContent = isVisible ? "Visible" : "Hidden";
+  });
+</script>
 
         <!-- ══════════════════════════════════════════════════════
              STEP 4 — PREFERENCES & CONSENT
