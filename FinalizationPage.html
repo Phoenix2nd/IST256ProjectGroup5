@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Finalization – Conference 2026</title>
 
-  <!-- Existing CSS -->
   <link rel="stylesheet" href="css/styles.css"/>
-
-  <!-- Bootstrap added -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -18,10 +15,9 @@
   <h1>Conference 2026 – Finalization</h1>
 </header>
 
-<!-- Bootstrap container added -->
 <main id="main-content" class="container my-4">
 
-  <!-- REGISTRATION FORM -->
+  <!-- FORM -->
   <section>
     <h2>Attendee Information</h2>
 
@@ -60,10 +56,9 @@
     </form>
   </section>
 
-  <!-- ORDER SUMMARY -->
+  <!-- SUMMARY -->
   <section>
     <h2>Order Summary</h2>
-
     <table id="confirmation-summary">
       <thead>
         <tr>
@@ -73,11 +68,6 @@
         </tr>
       </thead>
       <tbody id="checkout-summary-table-body"></tbody>
-      <tfoot>
-        <tr><td colspan="2">Subtotal</td><td></td></tr>
-        <tr><td colspan="2">Tax</td><td></td></tr>
-        <tr><td colspan="2"><strong>Total</strong></td><td></td></tr>
-      </tfoot>
     </table>
   </section>
 
@@ -87,64 +77,22 @@
   <p>© Conference 2026</p>
 </footer>
 
-<!-- React ROOT -->
+<!-- React Root -->
 <div id="react-finalization-root" class="container my-4"></div>
 
-<!-- ========================= -->
-<!-- SCRIPTS -->
-<!-- ========================= -->
-
-<!-- Bootstrap -->
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- React -->
 <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-<!-- ========================= -->
-<!-- REACT CODE INLINE -->
-<!-- ========================= -->
+<!-- ================= REACT ================= -->
 <script type="text/babel">
 
 const { useState, useEffect } = React;
 
 function FinalizationApp() {
-  const [attendees, setAttendees] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
   const [message, setMessage] = useState("");
-  const [jsonPreview, setJsonPreview] = useState("");
-
-  useEffect(() => {
-    const storedAttendees = JSON.parse(localStorage.getItem("attendees")) || [];
-    const storedCart = JSON.parse(localStorage.getItem("conferenceCart")) || [];
-
-    setAttendees(storedAttendees);
-    setCartItems(storedCart);
-
-    // Auto Bootstrap styling
-    document.querySelectorAll("section").forEach(section => {
-      section.classList.add("card", "shadow-sm", "p-3", "mb-4");
-    });
-
-    document.querySelectorAll("input, select").forEach(el => {
-      if (el.type !== "checkbox" && el.type !== "radio") {
-        el.classList.add("form-control", "mb-2");
-      } else {
-        el.classList.add("form-check-input", "me-2");
-      }
-    });
-
-    document.querySelectorAll("button[type='submit']").forEach(btn => {
-      btn.classList.add("btn", "btn-primary", "me-2");
-    });
-
-    document.querySelectorAll("button[type='reset']").forEach(btn => {
-      btn.classList.add("btn", "btn-outline-secondary");
-    });
-
-    document.getElementById("confirmation-summary")?.classList.add("table", "table-bordered", "mt-3");
-  }, []);
 
   function buildPayload() {
     return {
@@ -159,46 +107,38 @@ function FinalizationApp() {
       sessions:
         Array.from(document.querySelectorAll("input[name='sessions']:checked"))
           .map(x => x.value),
-      attendees_from_localStorage: attendees,
-      cart_from_localStorage: cartItems,
       submitted_at: new Date().toISOString()
     };
   }
 
   function handleSubmit() {
     const payload = buildPayload();
-    setJsonPreview(JSON.stringify(payload, null, 2));
 
-    fetch("https://jsonplaceholder.typicode.com/posts", {
+    fetch("http://localhost:3000/api/orders", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(payload)
     })
     .then(res => res.json())
     .then(data => {
-      console.log("SUCCESS:", data);
-      setMessage("Submission successful (check console).");
+      console.log("Saved:", data);
+      setMessage("✅ Submitted! Status = Pending");
     })
-    .catch(() => {
-      setMessage("Submission attempted.");
+    .catch(err => {
+      console.error(err);
+      setMessage("❌ Error submitting");
     });
   }
 
   return (
     <div className="card p-4 shadow-sm">
-      <h2>React Finalization Panel</h2>
-
-      <button className="btn btn-success my-3" onClick={handleSubmit}>
-        Build JSON + Send AJAX
+      <h2>React Submit (Backend Connected)</h2>
+      <button className="btn btn-success" onClick={handleSubmit}>
+        Submit with React
       </button>
-
-      {message && <div className="alert alert-info">{message}</div>}
-
-      {jsonPreview && (
-        <pre className="bg-light p-3 border rounded">
-          {jsonPreview}
-        </pre>
-      )}
+      {message && <div className="alert alert-info mt-3">{message}</div>}
     </div>
   );
 }
@@ -208,6 +148,8 @@ ReactDOM.createRoot(
 ).render(<FinalizationApp />);
 
 </script>
+
+<!-- ================= JQUERY ================= -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -218,7 +160,6 @@ $("#finalization-form").submit(function(e) {
   const email = $("#email").val();
   const institution = $("#institution").val();
   const attendeeType = $("#attendee-type").val();
-
   const participation = $("input[name='participation_type']:checked").val();
 
   let sessions = [];
@@ -232,30 +173,34 @@ $("#finalization-form").submit(function(e) {
   }
 
   const formData = {
-    fullName,
-    email,
-    institution,
-    attendeeType,
-    participation,
-    sessions
+    attendee: {
+      full_name: fullName,
+      email: email,
+      institution: institution,
+      attendee_type: attendeeType
+    },
+    participation_type: participation,
+    sessions: sessions,
+    submitted_at: new Date().toISOString()
   };
 
-  // ✅ JSON output (for screenshot)
-  console.log("JSON Data:", JSON.stringify(formData, null, 2));
+  console.log("JSON:", JSON.stringify(formData, null, 2));
 
-  // ✅ AJAX call (REQUIRED)
   $.ajax({
-    url: "https://jsonplaceholder.typicode.com/posts",
+    url: "http://localhost:3000/api/orders",
     type: "POST",
     data: JSON.stringify(formData),
     contentType: "application/json",
     success: function(response) {
-      alert("Submission successful!");
-      console.log("Server Response:", response);
+      alert("✅ Submission successful (Pending)");
+      console.log("Response:", response);
+    },
+    error: function() {
+      alert("❌ Error submitting");
     }
   });
-
 });
 </script>
+
 </body>
 </html>
