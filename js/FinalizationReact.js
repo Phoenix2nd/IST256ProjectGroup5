@@ -13,7 +13,6 @@ function FinalizationApp() {
     setAttendees(storedAttendees);
     setCartItems(storedCart);
 
-    // Light Bootstrap styling added automatically to existing page
     document.querySelectorAll("section").forEach(section => {
       section.classList.add("card", "shadow-sm", "p-3", "mb-4");
     });
@@ -33,11 +32,6 @@ function FinalizationApp() {
     document.querySelectorAll("button[type='reset']").forEach(btn => {
       btn.classList.add("btn", "btn-outline-secondary", "me-2");
     });
-
-    const summaryTable = document.getElementById("confirmation-summary");
-    if (summaryTable) {
-      summaryTable.classList.add("table", "table-striped", "table-bordered", "mt-3");
-    }
   }, []);
 
   function buildPayload() {
@@ -70,10 +64,15 @@ function FinalizationApp() {
 
   function handleReactSubmit() {
     const payload = buildPayload();
-    const prettyJson = JSON.stringify(payload, null, 2);
-    setJsonPreview(prettyJson);
 
-    fetch("https://jsonplaceholder.typicode.com/posts", {
+    if (!payload.attendee.full_name || !payload.attendee.email) {
+      setMessage("Please enter your full name and email before submitting.");
+      return;
+    }
+
+    setJsonPreview(JSON.stringify(payload, null, 2));
+
+    fetch("http://localhost:3000/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -82,13 +81,12 @@ function FinalizationApp() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log("React submit success:", data);
-        console.log("Final JSON payload:", payload);
-        setMessage("React + AJAX submission completed successfully.");
+        console.log("Order saved:", data);
+        setMessage("Registration submitted successfully. Status: Pending approval.");
       })
       .catch(error => {
-        console.error("React submit error:", error);
-        setMessage("Submission attempted. Check console output.");
+        console.error("Submit error:", error);
+        setMessage("There was an error submitting your registration.");
       });
   }
 
@@ -96,7 +94,7 @@ function FinalizationApp() {
     <div className="card shadow-sm p-4 mb-5">
       <h2 className="mb-3">React Finalization Panel</h2>
       <p className="mb-3">
-        This section reads saved attendee and cart data, builds a JSON payload, and sends it with AJAX.
+        This section reads saved attendee and cart data, builds a JSON payload, and sends it to the Node.js backend.
       </p>
 
       <div className="row">
@@ -123,7 +121,8 @@ function FinalizationApp() {
             <ul className="list-group">
               {cartItems.map((item, index) => (
                 <li key={index} className="list-group-item">
-                  {item.productName} (Qty: {item.quantity})
+                  {item.productName || item.name || "Conference Item"}
+                  {item.quantity ? ` (Qty: ${item.quantity})` : ""}
                 </li>
               ))}
             </ul>
@@ -132,7 +131,7 @@ function FinalizationApp() {
       </div>
 
       <button className="btn btn-success mt-2" onClick={handleReactSubmit}>
-        Build JSON + Send AJAX
+        Submit Registration
       </button>
 
       {message && <div className="alert alert-info mt-3">{message}</div>}
@@ -149,4 +148,4 @@ function FinalizationApp() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("react-finalization-root")).render(<FinalizationApp />);
+ReactDOM.render(<FinalizationApp />, document.getElementById("finalization-root"));
