@@ -60,24 +60,51 @@ main {
 
 /* HERO SECTION */
 .hero-section {
-    background-color: #f4f4f4; /* Light gray background */
-    padding: 3rem 1rem;       /* Adds some space around the content */
-    border-radius: 8px;       /* Optional: rounds the corners slightly */
+    background-color: #f4f4f4; 
+    padding: 3rem 2rem;       
+    border-radius: 8px;       
+    text-align: left;         /* Keeps text aligned left within the gray box */
 }
 
-/* Optional: If you want the list of stats to look cleaner on the gray */
+/* Specific stats styling for the Hero Section */
 .hero-section ul {
     list-style: none;
     padding: 0;
-    display: flex;
+    display: flex;            /* Horizontal layout */
+    justify-content: flex-start; /* Aligns stats to the left */
     gap: 20px;
     flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 .hero-section ul li {
-    background: white;        /* Makes stats pop against the gray */
-    padding: 15px;
-    border-radius: 5px;
+    background: white;        /* The "card" look */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    flex: 1;                  /* Makes boxes equal width */
+    min-width: 150px;         /* Prevents them from getting too skinny */
+}
+
+.hero-section ul li strong {
+    display: block;
+    font-size: 1.5rem;
+    color: #0b3d91;
+}
+
+.hero-section ul li span {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+/* GENERAL STATS (Only applies to other sections) */
+section:not(.hero-section) ul {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    list-style: none;
 }
 
 /* BUTTONS & FORM INPUTS */
