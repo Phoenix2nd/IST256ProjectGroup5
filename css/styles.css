@@ -59,22 +59,25 @@ main {
 }
 
 /* HERO SECTION */
-section:first-of-type {
-  text-align: center;
-  margin-bottom: 50px;
+.hero-section {
+    background-color: #f4f4f4; /* Light gray background */
+    padding: 3rem 1rem;       /* Adds some space around the content */
+    border-radius: 8px;       /* Optional: rounds the corners slightly */
 }
 
-h1 {
-  font-size: 3rem;
-  margin: 20px 0;
+/* Optional: If you want the list of stats to look cleaner on the gray */
+.hero-section ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-h2 {
-  margin-bottom: 20px;
-}
-
-h3 {
-  margin: 20px 0 10px;
+.hero-section ul li {
+    background: white;        /* Makes stats pop against the gray */
+    padding: 15px;
+    border-radius: 5px;
 }
 
 /* BUTTONS & FORM INPUTS */
