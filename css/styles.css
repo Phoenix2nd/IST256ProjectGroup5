@@ -59,52 +59,22 @@ main {
 }
 
 /* HERO SECTION */
-.hero-section {
-    background-color: #f4f4f4; 
-    padding: 3rem 2rem;       
-    border-radius: 8px;       
-    text-align: left;         /* Keeps text aligned left within the gray box */
+section:first-of-type {
+  text-align: center;
+  margin-bottom: 50px;
 }
 
-/* Specific stats styling for the Hero Section */
-.hero-section ul {
-    list-style: none;
-    padding: 0;
-    display: flex;            /* Horizontal layout */
-    justify-content: flex-start; /* Aligns stats to the left */
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 30px;
+h1 {
+  font-size: 3rem;
+  margin: 20px 0;
 }
 
-.hero-section ul li {
-    background: white;        /* The "card" look */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    text-align: center;
-    flex: 1;                  /* Makes boxes equal width */
-    min-width: 150px;         /* Prevents them from getting too skinny */
+h2 {
+  margin-bottom: 20px;
 }
 
-.hero-section ul li strong {
-    display: block;
-    font-size: 1.5rem;
-    color: #0b3d91;
-}
-
-.hero-section ul li span {
-    font-size: 0.85rem;
-    color: #555;
-}
-
-/* GENERAL STATS (Only applies to other sections) */
-section:not(.hero-section) ul {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-    list-style: none;
+h3 {
+  margin: 20px 0 10px;
 }
 
 /* BUTTONS & FORM INPUTS */
