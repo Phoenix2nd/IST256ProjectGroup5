@@ -102,8 +102,11 @@
                 name="session_id"
                 placeholder="e.g. CONF-001"
                 required
-                readonly
-              />
+                input type="text" id="session-id" ... readonly
+
+                document.addEventListener('DOMContentLoaded', () => {
+    
+          />
               <span id="session-id-hint">
                 Auto-generated on save. Format: <code>CONF-###</code> for talks,
                 <code>WRK-###</code> for workshops. You may override before saving.
