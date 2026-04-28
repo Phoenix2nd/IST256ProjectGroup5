@@ -62,14 +62,11 @@ main {
 section:first-of-type {
   text-align: center;
   margin-bottom: 50px;
-  background-color: #f2f2f2; /* ADD THIS: Makes it grey */
-  padding: 60px 20px;       /* ADD THIS: Adds space so the text isn't touching the edges */
 }
 
 h1 {
   font-size: 3rem;
   margin: 20px 0;
-  color: #1a4382;           /* Optional: keeps your header blue */
 }
 
 h2 {
