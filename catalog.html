@@ -102,11 +102,8 @@
                 name="session_id"
                 placeholder="e.g. CONF-001"
                 required
-                input type="text" id="session-id" ... readonly
-
-                document.addEventListener('DOMContentLoaded', () => {
-    
-          />
+                readonly
+              />
               <span id="session-id-hint">
                 Auto-generated on save. Format: <code>CONF-###</code> for talks,
                 <code>WRK-###</code> for workshops. You may override before saving.
@@ -557,7 +554,7 @@
             <a href="#add-session">+ Add New Session</a>
           </p>
         </header>
- 
+
         <!-- ── Table View ──────────────────────────────────── -->
         <div role="region" tabindex="0">
           <table>
@@ -569,7 +566,7 @@
                 <p>Click column headers to sort. The Actions column lets you edit a session (which pre-fills the form above) or permanently delete it.</p>
               </details>
             </caption>
- 
+
             <thead>
               <tr>
                 <th scope="col">
@@ -609,9 +606,9 @@
                 <th scope="col"><span class="sr-only">Actions</span></th>
               </tr>
             </thead>
- 
+
             <tbody>
- 
+
               <!-- Row 1 -->
               <tr>
                 <th scope="row"><code>CONF-001</code></th>
@@ -637,7 +634,7 @@
                   >Delete</button>
                 </td>
               </tr>
- 
+
               <!-- Row 2 -->
               <tr>
                 <th scope="row"><code>WRK-001</code></th>
@@ -663,7 +660,7 @@
                   >Delete</button>
                 </td>
               </tr>
- 
+
               <!-- Row 3 -->
               <tr>
                 <th scope="row"><code>CONF-002</code></th>
@@ -689,7 +686,7 @@
                   >Delete</button>
                 </td>
               </tr>
- 
+
               <!-- Row 4 -->
               <tr>
                 <th scope="row"><code>WRK-002</code></th>
@@ -715,7 +712,7 @@
                   >Delete</button>
                 </td>
               </tr>
- 
+
               <!-- Row 5 -->
               <tr>
                 <th scope="row"><code>CONF-003</code></th>
@@ -741,7 +738,7 @@
                   >Delete</button>
                 </td>
               </tr>
- 
+
               <!-- Row 6 -->
               <tr>
                 <th scope="row"><code>CONF-004</code></th>
@@ -767,24 +764,23 @@
                   >Delete</button>
                 </td>
               </tr>
- 
+
             </tbody>
           </table>
         </div>
- 
+
     <!-- SITE FOOTER -->
     <footer>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#schedule">Schedule</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="catalog.html">Catalog</a></li>
+          <li><a href="store.html">Store</a></li>
+        </ul>
+      </nav>
       
 
       <address>
         Conference 2026 Secretariat<br />
-        123 Convention Way, Innovation District<br />
-        San Francisco, CA 94102, USA<br />
-        <a href="mailto:info@conference.com">info@conference.com</a>
-      </address>
-
-      <small>&copy; 2026 Conference 2026. All rights reserved.</small>
-    </footer>
-
-  </body>
-</html>
