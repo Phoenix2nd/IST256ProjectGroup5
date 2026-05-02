@@ -3,15 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Order History</title>
+  <title>Order History - Conference 2026</title>
 
   <link rel="stylesheet" href="css/styles.css"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    .badge-pending { background-color: #ca8a04; color: #fff; }
-    .badge-approved { background-color: #16a34a; color: #fff; }
-    .badge-declined { background-color: #dc2626; color: #fff; }
+    body { background-color: #f8faff; }
+
+    .page-header {
+      background: linear-gradient(135deg, #0b3d91 0%, #1e3a6e 100%);
+      color: white;
+      padding: 16px 0;
+    }
+    .page-header a { color: white; }
+    .page-header nav a { color: rgba(255,255,255,0.85); font-weight: 600; }
+    .page-header nav a:hover { color: white; text-decoration: none; }
 
     .stat-card {
       background-color: #0f172a;
@@ -20,63 +27,79 @@
       padding: 20px;
       text-align: center;
     }
+    .stat-number { font-size: 2rem; font-weight: bold; color: #3b82f6; display: block; }
+    .stat-label  { font-size: 0.85rem; color: #9ca3af; }
 
-    .stat-number {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #3b82f6;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.85rem;
-      color: #9ca3af;
-    }
-
-    .order-table thead th {
-      background-color: #1e3a6e;
-      color: #93c5fd;
-      font-weight: bold;
-    }
-
-    .order-table td {
-      vertical-align: middle;
-    }
+    .badge-pending  { background-color: #ca8a04; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: bold; }
+    .badge-approved { background-color: #16a34a; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: bold; }
+    .badge-declined { background-color: #dc2626; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: bold; }
 
     .session-pill {
       display: inline-block;
-      background-color: #1e3a5f;
-      color: #93c5fd;
-      font-size: 0.75rem;
+      background-color: #dbeafe;
+      color: #1e40af;
+      font-size: 0.72rem;
       padding: 2px 8px;
       border-radius: 20px;
       margin: 2px;
     }
 
     .filter-bar {
-      background-color: #f4f7ff;
+      background-color: white;
       border: 1px solid #dbe4ff;
       border-radius: 8px;
       padding: 16px 20px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
+
+    .order-card {
+      background: white;
+      border: 1px solid #dbe4ff;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .order-card-header {
+      background-color: #f0f4ff;
+      border-bottom: 1px solid #dbe4ff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .order-id { font-family: monospace; color: #0b3d91; font-weight: bold; font-size: 0.95rem; }
+    .order-date { color: #6b7280; font-size: 0.82rem; }
+    .order-card-body { padding: 18px 20px; }
+
+    .info-label { font-size: 0.75rem; font-weight: bold; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
+    .info-value { font-size: 0.9rem; color: #111827; margin-bottom: 10px; }
+
+    .cart-mini { font-size: 0.82rem; color: #374151; }
+    .cart-mini td, .cart-mini th { padding: 4px 8px; }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+
+    .loading-state { text-align: center; padding: 40px; color: #6b7280; }
   </style>
 </head>
 
 <body>
 
-<header class="container-fluid py-3">
+<header class="page-header">
   <div class="container d-flex justify-content-between align-items-center">
-    <div>
-      <a href="index.html"><strong>Conference 2026</strong></a>
-    </div>
+    <a href="index.html"><strong>Conference 2026</strong></a>
     <nav>
       <ul class="nav gap-3">
         <li><a href="index.html">Home</a></li>
         <li><a href="register.html">Register</a></li>
         <li><a href="catalog.html">Catalog</a></li>
         <li><a href="store.html">Store</a></li>
-        <li><a href="approval.html">Approval</a></li>
+        <li><a href="approval.html">Admin Approval</a></li>
       </ul>
     </nav>
   </div>
@@ -84,28 +107,267 @@
 
 <main id="main-content" class="container my-4">
 
-  <section class="mb-4">
-    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
-      <div>
-        <h1 class="mb-1">Order History</h1>
-        <p class="mb-0">All session registration submissions and their current approval status.</p>
-      </div>
-      <div class="d-flex gap-2 flex-wrap">
-        <a href="FinalizationPage.html" class="btn btn-primary btn-sm fw-bold">+ New Registration</a>
-        <a href="approval.html" class="btn btn-warning btn-sm fw-bold text-dark">Admin Approval Panel</a>
-      </div>
+  <!-- Page title row -->
+  <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-4">
+    <div>
+      <h1 class="mb-1" style="color:#0b3d91;">Order History</h1>
+      <p class="text-muted mb-0">All registration submissions and their current approval status.</p>
     </div>
-  </section>
+    <div class="d-flex gap-2 flex-wrap">
+      <a href="FinalizationPage.html" class="btn btn-primary btn-sm fw-bold">+ New Registration</a>
+      <a href="approval.html" class="btn btn-warning btn-sm fw-bold text-dark">Admin Approval Panel</a>
+    </div>
+  </div>
 
+  <!-- Stat cards -->
   <div class="row g-3 mb-4">
     <div class="col-6 col-md-3">
       <div class="stat-card">
-        <span id="total-count" class="stat-number">0</span>
+        <span id="total-count" class="stat-number">—</span>
         <span class="stat-label">Total Submissions</span>
       </div>
     </div>
     <div class="col-6 col-md-3">
       <div class="stat-card">
-        <span id="approved-count" class="stat-number" style="color:#16a34a;">0</span>
+        <span id="pending-count" class="stat-number" style="color:#ca8a04;">—</span>
+        <span class="stat-label">Pending</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <span id="approved-count" class="stat-number" style="color:#16a34a;">—</span>
         <span class="stat-label">Approved</span>
       </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <span id="declined-count" class="stat-number" style="color:#dc2626;">—</span>
+        <span class="stat-label">Declined</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <div class="row g-2 align-items-end">
+      <div class="col-12 col-md-5">
+        <label class="form-label fw-bold" style="font-size:0.82rem; color:#1e3a6e;" for="history-search">
+          Search by name, email, or order ID
+        </label>
+        <input type="search" id="history-search" class="form-control form-control-sm" placeholder="Search orders..." />
+      </div>
+      <div class="col-6 col-md-3">
+        <label class="form-label fw-bold" style="font-size:0.82rem; color:#1e3a6e;" for="history-status-filter">
+          Status
+        </label>
+        <select id="history-status-filter" class="form-select form-select-sm">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="declined">Declined</option>
+        </select>
+      </div>
+      <div class="col-6 col-md-2">
+        <label class="form-label fw-bold" style="font-size:0.82rem; color:#1e3a6e;" for="history-type-filter">
+          Type
+        </label>
+        <select id="history-type-filter" class="form-select form-select-sm">
+          <option value="">All types</option>
+          <option value="in-person">In-Person</option>
+          <option value="virtual">Virtual</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-2">
+        <button class="btn btn-outline-secondary btn-sm w-100" onclick="resetFilters()">Clear Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orders list -->
+  <div id="orders-container">
+    <div class="loading-state">Loading orders...</div>
+  </div>
+
+</main>
+
+<footer class="container-fluid py-3 mt-4" style="background:#0b3d91; color:white;">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <small>&copy; 2026 Conference 2026. All rights reserved.</small>
+    <nav>
+      <ul class="nav gap-3">
+        <li><a href="index.html" style="color:rgba(255,255,255,0.8);">Home</a></li>
+        <li><a href="store.html" style="color:rgba(255,255,255,0.8);">Store</a></li>
+        <li><a href="FinalizationPage.html" style="color:rgba(255,255,255,0.8);">Finalize</a></li>
+        <li><a href="approval.html" style="color:rgba(255,255,255,0.8);">Admin</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+  var allOrders = [];
+
+  // Fetch all orders from backend
+  function loadOrders() {
+    $("#orders-container").html('<div class="loading-state">Loading orders...</div>');
+
+    $.ajax({
+      url: "http://localhost:3000/api/orders",
+      type: "GET",
+      success: function(orders) {
+        allOrders = orders;
+        updateStats(orders);
+        renderOrders(orders);
+      },
+      error: function() {
+        $("#orders-container").html(
+          '<div class="empty-state">' +
+          '<div class="icon">⚠️</div>' +
+          '<h3>Could not load orders</h3>' +
+          '<p>Make sure <code>node server.js</code> is running, then refresh this page.</p>' +
+          '</div>'
+        );
+        $("#total-count, #pending-count, #approved-count, #declined-count").text("—");
+      }
+    });
+  }
+
+  // Update stat cards
+  function updateStats(orders) {
+    $("#total-count").text(orders.length);
+    $("#pending-count").text(orders.filter(function(o) { return o.status === "pending";  }).length);
+    $("#approved-count").text(orders.filter(function(o) { return o.status === "approved"; }).length);
+    $("#declined-count").text(orders.filter(function(o) { return o.status === "declined"; }).length);
+  }
+
+  // Render order cards
+  function renderOrders(orders) {
+    var $container = $("#orders-container");
+
+    if (orders.length === 0) {
+      $container.html(
+        '<div class="empty-state">' +
+        '<div class="icon">📭</div>' +
+        '<h3>No orders found</h3>' +
+        '<p>No registrations match your current filters.</p>' +
+        '</div>'
+      );
+      return;
+    }
+
+    // Sort newest first
+    var sorted = orders.slice().sort(function(a, b) { return b.id - a.id; });
+
+    var html = sorted.map(function(order) {
+      var badgeClass = "badge-" + (order.status || "pending");
+      var badgeLabel = (order.status || "pending").charAt(0).toUpperCase() + (order.status || "pending").slice(1);
+
+      // Sessions
+      var sessionHtml = '<span class="text-muted" style="font-size:0.82rem;">None selected</span>';
+      if (order.sessions && order.sessions.length > 0) {
+        sessionHtml = order.sessions.map(function(s) {
+          return '<span class="session-pill">' + s + '</span>';
+        }).join("");
+      }
+
+      // Cart summary
+      var cartHtml = '<span class="text-muted" style="font-size:0.82rem;">No cart items</span>';
+      if (order.cart && order.cart.length > 0) {
+        var rows = order.cart.map(function(item) {
+          return "<tr><td>" + item.productName + "</td><td class='text-center'>" + item.quantity + "</td><td class='text-end'>$" + (item.unitPrice * item.quantity).toFixed(2) + "</td></tr>";
+        }).join("");
+        cartHtml =
+          '<table class="table table-sm cart-mini mb-0">' +
+          "<thead><tr><th>Item</th><th class='text-center'>Qty</th><th class='text-end'>Subtotal</th></tr></thead>" +
+          "<tbody>" + rows + "</tbody>";
+        if (order.order_total) {
+          cartHtml += "<tfoot><tr><td colspan='2' class='text-end fw-bold'>Total</td><td class='text-end fw-bold'>$" + order.order_total.toFixed(2) + " USD</td></tr></tfoot>";
+        }
+        cartHtml += "</table>";
+      }
+
+      return (
+        '<div class="order-card">' +
+          '<div class="order-card-header">' +
+            '<div class="d-flex align-items-center gap-3">' +
+              '<span class="order-id">REG-' + order.id + '</span>' +
+              '<span class="' + badgeClass + '">' + badgeLabel + '</span>' +
+            '</div>' +
+            '<span class="order-date">Submitted: ' + (order.date || "N/A") + '</span>' +
+          '</div>' +
+          '<div class="order-card-body">' +
+            '<div class="row g-4">' +
+
+              '<div class="col-md-3">' +
+                '<p class="info-label mb-1">Attendee</p>' +
+                '<p class="info-value mb-1"><strong>' + (order.attendee && order.attendee.full_name ? order.attendee.full_name : "N/A") + '</strong></p>' +
+                '<p class="info-value mb-1" style="font-size:0.85rem;">' + (order.attendee && order.attendee.email ? order.attendee.email : "") + '</p>' +
+                '<p class="info-value mb-1" style="font-size:0.85rem;">' + (order.attendee && order.attendee.institution ? order.attendee.institution : "") + '</p>' +
+                '<span class="session-pill" style="background:#f0f4ff; color:#0b3d91;">' + (order.attendee && order.attendee.attendee_type ? order.attendee.attendee_type : "N/A") + '</span>' +
+              '</div>' +
+
+              '<div class="col-md-2">' +
+                '<p class="info-label mb-1">Participation</p>' +
+                '<p class="info-value"><span class="session-pill" style="background:#ecfdf5; color:#065f46;">' + (order.participation_type || "N/A") + '</span></p>' +
+              '</div>' +
+
+              '<div class="col-md-3">' +
+                '<p class="info-label mb-1">Sessions</p>' +
+                '<div>' + sessionHtml + '</div>' +
+              '</div>' +
+
+              '<div class="col-md-4">' +
+                '<p class="info-label mb-1">Cart</p>' +
+                cartHtml +
+              '</div>' +
+
+            '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join("");
+
+    $container.html(html);
+  }
+
+  // Filter logic
+  function applyFilters() {
+    var search = $("#history-search").val().toLowerCase().trim();
+    var status = $("#history-status-filter").val();
+    var type   = $("#history-type-filter").val();
+
+    var filtered = allOrders.filter(function(order) {
+      var name  = (order.attendee && order.attendee.full_name ? order.attendee.full_name.toLowerCase() : "");
+      var email = (order.attendee && order.attendee.email ? order.attendee.email.toLowerCase() : "");
+      var id    = String(order.id);
+
+      var matchSearch = !search || name.includes(search) || email.includes(search) || id.includes(search);
+      var matchStatus = !status || order.status === status;
+      var matchType   = !type   || order.participation_type === type;
+
+      return matchSearch && matchStatus && matchType;
+    });
+
+    renderOrders(filtered);
+  }
+
+  function resetFilters() {
+    $("#history-search").val("");
+    $("#history-status-filter").val("");
+    $("#history-type-filter").val("");
+    renderOrders(allOrders);
+  }
+
+  // Event listeners
+  $("#history-search").on("input", applyFilters);
+  $("#history-status-filter, #history-type-filter").on("change", applyFilters);
+
+  // Init
+  loadOrders();
+</script>
+
+</body>
+</html>
