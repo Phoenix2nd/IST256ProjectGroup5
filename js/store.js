@@ -289,7 +289,7 @@ $(function () {
   // Live filter on any dropdown change
   $('#filter-category, #filter-price, #filter-availability, #sort-by').on('change', applyFilters);
 
-  // Form submit — prevent default navigation, run filter, scroll to results
+  // Form submit - prevent default navigation, run filter, scroll to results
   $('#product-search-form').on('submit', function (e) {
     e.preventDefault();
     applyFilters();
@@ -299,7 +299,7 @@ $(function () {
     );
   });
 
-  // "Clear" link — reset the form and show all products
+  // "Clear" link - reset the form and show all products
   $(document).on('click', 'a[href="#product-search"]', function () {
     $('#product-search-form')[0].reset();
     $('#product-list > li').show();
@@ -444,7 +444,7 @@ $(function () {
 
     recalcTotals();
 
-    // AJAX PATCH → /api/v1/cart/items/{id}
+    // AJAX PATCH --> /api/v1/cart/items/{id}
     sendToApi($form.data('ajax-endpoint'), 'PATCH', {
       cart_item_id: cartItemId,
       product_id:   productId,
@@ -473,7 +473,7 @@ $(function () {
       recalcTotals();
     });
 
-    // AJAX DELETE → /api/v1/cart/items/{id}
+    // AJAX DELETE --> /api/v1/cart/items/{id}
     sendToApi($form.data('ajax-endpoint'), 'DELETE', {
       cart_item_id: cartItemId,
       product_id:   productId
@@ -493,7 +493,7 @@ $(function () {
     $('#cart-body').empty();
     recalcTotals();
 
-    // AJAX DELETE → /api/v1/cart
+    // AJAX DELETE --> /api/v1/cart
     sendToApi($(this).data('ajax-endpoint'), 'DELETE', {});
   });
 
@@ -513,151 +513,7 @@ $(function () {
 
   $('#checkout-form').on('submit', function (e) {
     e.preventDefault();
-
-    const errors = [];
-
-    // 10a. Cart must have items
-    if (cart.length === 0) {
-      errors.push('Your cart is empty. Please add at least one item before checking out.');
-    }
-
-    // 10b. Required billing fields
-    const billingFields = [
-      { id: 'billing-name',    label: 'Full Name' },
-      { id: 'billing-email',   label: 'Email Address' },
-      { id: 'billing-address', label: 'Billing Address' },
-      { id: 'billing-city',    label: 'City' },
-      { id: 'billing-state',   label: 'State / Province' },
-      { id: 'billing-zip',     label: 'Postal / ZIP Code' },
-      { id: 'billing-country', label: 'Country' }
-    ];
-
-    billingFields.forEach(function (field) {
-      if (!$('#' + field.id).val().trim()) {
-        errors.push(field.label + ' is required.');
-      }
-    });
-
-    // 10c. Email format
-    const emailVal = $('#billing-email').val().trim();
-    if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      errors.push('Please enter a valid email address (e.g. jane@university.edu).');
-    }
-
-    // 10d. Card-specific validation (only when card payment selected)
-    if ($('#pay-card').is(':checked')) {
-      const cardName   = $('#card-name').val().trim();
-      const cardNum    = $('#card-number').val().replace(/\s+/g, '');
-      const cardExpiry = $('#card-expiry').val().trim();
-      const cardCvc    = $('#card-cvc').val().trim();
-
-      if (!cardName) {
-        errors.push('Name on Card is required.');
-      }
-      if (!/^\d{15,16}$/.test(cardNum)) {
-        errors.push('Card Number must be 15 or 16 digits (spaces are ignored).');
-      }
-      if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExpiry)) {
-        errors.push('Expiry Date must be in MM/YY format (e.g. 08/27).');
-      }
-      if (!/^\d{3,4}$/.test(cardCvc)) {
-        errors.push('CVC must be 3 or 4 digits.');
-      }
-    }
-
-    // 10e. Terms checkbox
-    if (!$('#agree-purchase-terms').is(':checked')) {
-      errors.push('You must agree to the Purchase Terms to place your order.');
-    }
-
-    // --- Show errors or proceed ---
-    const $feedback = $('#order-feedback');
-
-    if (errors.length > 0) {
-      const errorHtml =
-        '<strong>Please fix the following before placing your order:</strong><ul>' +
-        errors.map(function (err) { return '<li>' + err + '</li>'; }).join('') +
-        '</ul>';
-      $feedback
-        .html(errorHtml)
-        .css({
-          color:        '#f87171',
-          border:       '1px solid #f87171',
-          padding:      '12px',
-          borderRadius: '6px',
-          marginTop:    '12px'
-        })
-        .show();
-      $('html, body').animate({ scrollTop: $feedback.offset().top - 20 }, 400);
-      return;
-    }
-
-    // --- Build order JSON payload ---
-    const orderPayload = {
-      order_id:       'ORD-' + Date.now(),
-      timestamp:      new Date().toISOString(),
-      billing: {
-        name:    $('#billing-name').val().trim(),
-        email:   $('#billing-email').val().trim(),
-        address: $('#billing-address').val().trim(),
-        city:    $('#billing-city').val().trim(),
-        state:   $('#billing-state').val().trim(),
-        zip:     $('#billing-zip').val().trim(),
-        country: $('#billing-country').val()
-      },
-      delivery_preference: $('input[name="delivery_preference"]:checked').val(),
-      payment_method:      $('input[name="payment_method"]:checked').val(),
-      receipt_email:       $('#receipt-email').is(':checked'),
-      currency:            'USD',
-      cart_items:          JSON.parse(JSON.stringify(cart)),   // deep clone
-      subtotal:            parseFloat($('#checkout-subtotal').val()),
-      tax:                 parseFloat($('#checkout-tax').val()),
-      order_total:         parseFloat($('#checkout-order-total').val())
-    };
-
-    console.log('=== Order Payload JSON ===');
-    console.log(JSON.stringify(orderPayload, null, 2));
-
-    // AJAX POST → /api/v1/orders
-    sendToApi(
-      '/api/v1/orders',
-      'POST',
-      orderPayload,
-      function (response) {
-        // Success callback (API not yet built - fires only when API is live)
-        console.log('Order placed:', response);
-        $feedback
-          .html(
-            '<strong>Order placed successfully!</strong> ' +
-            'A confirmation has been sent to ' + orderPayload.billing.email + '.'
-          )
-          .css({
-            color:        '#4ade80',
-            border:       '1px solid #4ade80',
-            padding:      '12px',
-            borderRadius: '6px',
-            marginTop:    '12px'
-          })
-          .show();
-      },
-      function () {
-        // Error callback
-        // The API stub logs the failure; show a user-friendly message
-        $feedback
-          .html(
-            '<strong>Order submitted.</strong> ' +
-            '(The API is not yet built - your order JSON has been logged to the console.)'
-          )
-          .css({
-            color:        '#facc15',
-            border:       '1px solid #facc15',
-            padding:      '12px',
-            borderRadius: '6px',
-            marginTop:    '12px'
-          })
-          .show();
-      }
-    );
+    window.location.href = 'FinalizationPage.html';
   });
 
   /* AJAX TRANSPORT STUB */
